@@ -12,7 +12,7 @@ Visit the link to know me more https://www.hack4tahsin.com
 
 | Institute | Department | Result | Year |
 |:---------:|:----------:|:------:|:----:|
-| BRAC University | Computer Science | CGPA: 3.43 | 2019 - 2024 |
+| BRAC University | Computer Science | CGPA: 3.49 | 2019 - 2024 |
 | Shaheed Police Smrity College | Science | GPA: 4.50 | 2018 |
 | Monipur High School & College | Science | GPA: 4.61 | 2016 |
 
