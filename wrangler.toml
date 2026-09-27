@@ -1,10 +1,8 @@
 name = "tahsinahmed"
-main = "email/email.js"
-compatibility_date = "2024-09-23"
+compatibility_date = "2026-09-28"
 
 [assets]
 directory = "."
-binding = "ASSETS"
 
 [observability]
 enabled = true
