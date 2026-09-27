@@ -1,14 +1,13 @@
 /*
 =========================================================
-Contact Form — Pure Browser JavaScript
+Contact Form - Pure Browser JavaScript
 ---------------------------------------------------------
-No backend.
-No Cloudflare Worker API.
-No Resend API.
-No API key.
+No backend
+No API
+No Cloudflare Worker endpoint
+No Resend
 
-The browser opens the visitor's default email application
-using a mailto: link addressed to contact@tahsinahmed.com.
+Uses mailto: to open the visitor's default email client.
 =========================================================
 */
 
@@ -16,6 +15,11 @@ using a mailto: link addressed to contact@tahsinahmed.com.
     "use strict";
 
     var RECIPIENT = "contact@tahsinahmed.com";
+
+    var MAX_NAME_LENGTH = 200;
+    var MAX_EMAIL_LENGTH = 254;
+    var MAX_SUBJECT_LENGTH = 300;
+    var MAX_MESSAGE_LENGTH = 10000;
 
     var form = document.getElementById("contactForm");
     var submitBtn = document.getElementById("submit");
@@ -27,60 +31,177 @@ using a mailto: link addressed to contact@tahsinahmed.com.
         return;
     }
 
-    function isValidEmail(value) {
-        var email = String(value || "").trim();
-
-        return (
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-            email.length <= 254 &&
-            email.indexOf("..") === -1
-        );
+    function trim(value) {
+        return String(value || "").replace(/^\s+|\s+$/g, "");
     }
 
-    function setFieldError(input, message) {
+    function getValue(id) {
+        var element = document.getElementById(id);
+        return element ? trim(element.value) : "";
+    }
+
+    function isValidEmail(value) {
+        var email = trim(value);
+
+        if (email.length < 3 || email.length > MAX_EMAIL_LENGTH) {
+            return false;
+        }
+
+        if (email.indexOf("..") !== -1) {
+            return false;
+        }
+
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function getFormGroup(input) {
+        var node;
+
+        if (!input) {
+            return null;
+        }
+
+        node = input.parentNode;
+
+        while (node) {
+            if (
+                node.className &&
+                (" " + node.className + " ").indexOf(" form-group ") !== -1
+            ) {
+                return node;
+            }
+
+            node = node.parentNode;
+        }
+
+        return input.parentNode;
+    }
+
+    function clearFieldError(input) {
+        var group;
+        var error;
+
         if (!input) {
             return;
         }
 
-        var group =
-            input.closest(".form-group") ||
-            input.parentNode;
+        group = getFormGroup(input);
+
+        input.setCustomValidity("");
 
         if (!group) {
             return;
         }
 
-        group.classList.remove("has-error");
+        group.className =
+            group.className.replace(/\s*has-error\b/g, "");
 
-        var old =
-            group.querySelector(".field-error");
+        error = group.querySelector
+            ? group.querySelector(".field-error")
+            : null;
 
-        if (old) {
-            old.remove();
+        if (error && error.parentNode) {
+            error.parentNode.removeChild(error);
+        }
+    }
+
+    function setFieldError(input, message) {
+        var group;
+        var error;
+
+        if (!input) {
+            return;
         }
 
-        input.setCustomValidity("");
+        clearFieldError(input);
 
         if (!message) {
             return;
         }
 
-        group.classList.add("has-error");
+        group = getFormGroup(input);
 
         input.setCustomValidity(message);
 
-        var error =
-            document.createElement("small");
+        if (!group) {
+            return;
+        }
 
+        if (
+            (" " + group.className + " ").indexOf(" has-error ") === -1
+        ) {
+            group.className += " has-error";
+        }
+
+        error = document.createElement("small");
         error.className = "field-error";
         error.textContent = message;
 
         group.appendChild(error);
     }
 
+    function showMessage(title, text, icon) {
+        if (
+            typeof window.Swal !== "undefined" &&
+            window.Swal &&
+            typeof window.Swal.fire === "function"
+        ) {
+            window.Swal.fire({
+                title: title,
+                text: text,
+                icon: icon || "info",
+                confirmButtonColor: "#00006d"
+            });
+        } else {
+            window.alert(title + "\n\n" + text);
+        }
+    }
+
+    function showFallback(mailtoUrl) {
+        var oldFallback =
+            document.getElementById("contact-mail-fallback");
+
+        var wrapper;
+        var link;
+
+        if (oldFallback && oldFallback.parentNode) {
+            oldFallback.parentNode.removeChild(oldFallback);
+        }
+
+        wrapper = document.createElement("p");
+
+        wrapper.id = "contact-mail-fallback";
+        wrapper.style.marginTop = "15px";
+        wrapper.style.fontWeight = "600";
+
+        link = document.createElement("a");
+
+        link.href = mailtoUrl;
+        link.textContent = "click here to open your email app";
+
+        wrapper.appendChild(
+            document.createTextNode(
+                "If your email application did not open, "
+            )
+        );
+
+        wrapper.appendChild(link);
+
+        wrapper.appendChild(
+            document.createTextNode(".")
+        );
+
+        if (form.parentNode) {
+            form.parentNode.insertBefore(
+                wrapper,
+                form.nextSibling
+            );
+        }
+    }
+
     /*
     =====================================================
-    LIVE EMAIL VALIDATION
+    EMAIL VALIDATION
     =====================================================
     */
 
@@ -91,17 +212,17 @@ using a mailto: link addressed to contact@tahsinahmed.com.
             function () {
 
                 var value =
-                    emailEl.value.trim();
+                    trim(emailEl.value);
 
                 if (
                     !value ||
                     isValidEmail(value)
                 ) {
-                    setFieldError(
-                        emailEl,
-                        ""
-                    );
+
+                    clearFieldError(emailEl);
+
                 } else {
+
                     setFieldError(
                         emailEl,
                         "Please enter a valid email address."
@@ -116,21 +237,21 @@ using a mailto: link addressed to contact@tahsinahmed.com.
             function () {
 
                 var value =
-                    emailEl.value.trim();
+                    trim(emailEl.value);
 
                 if (
                     value &&
                     !isValidEmail(value)
                 ) {
+
                     setFieldError(
                         emailEl,
                         "Please enter a valid email address."
                     );
+
                 } else {
-                    setFieldError(
-                        emailEl,
-                        ""
-                    );
+
+                    clearFieldError(emailEl);
                 }
             }
         );
@@ -154,7 +275,9 @@ using a mailto: link addressed to contact@tahsinahmed.com.
 
                 var file =
                     fileInput.files &&
-                    fileInput.files[0];
+                    fileInput.files.length
+                        ? fileInput.files[0]
+                        : null;
 
                 fileChosen.textContent =
                     file
@@ -175,6 +298,15 @@ using a mailto: link addressed to contact@tahsinahmed.com.
         "submit",
         function (event) {
 
+            var name;
+            var email;
+            var subject;
+            var message;
+            var file;
+            var body;
+            var mailtoUrl;
+            var originalBtnHTML;
+
             event.preventDefault();
 
 
@@ -184,79 +316,15 @@ using a mailto: link addressed to contact@tahsinahmed.com.
             -------------------------------------------------
             */
 
-            if (!form.checkValidity()) {
+            if (
+                typeof form.checkValidity === "function" &&
+                !form.checkValidity()
+            ) {
 
-                form.reportValidity();
-
-                return;
-            }
-
-
-            /*
-            -------------------------------------------------
-            Read form fields
-            -------------------------------------------------
-            */
-
-            var name =
-                String(
-                    document.getElementById("name")?.value ||
-                    ""
-                ).trim();
-
-
-            var email =
-                String(
-                    emailEl?.value ||
-                    ""
-                ).trim();
-
-
-            var subject =
-                String(
-                    document.getElementById("subject")?.value ||
-                    ""
-                ).trim();
-
-
-            var message =
-                String(
-                    document.getElementById("message")?.value ||
-                    ""
-                ).trim();
-
-
-            /*
-            -------------------------------------------------
-            Attachment filename
-            -------------------------------------------------
-            */
-
-            var attachment =
-                (
-                    fileInput &&
-                    fileInput.files &&
-                    fileInput.files[0]
-                )
-                    ? fileInput.files[0].name
-                    : "No attachment";
-
-
-            /*
-            -------------------------------------------------
-            Explicit email validation
-            -------------------------------------------------
-            */
-
-            if (!isValidEmail(email)) {
-
-                setFieldError(
-                    emailEl,
-                    "Please enter a valid email address."
-                );
-
-                if (emailEl) {
-                    emailEl.focus();
+                if (
+                    typeof form.reportValidity === "function"
+                ) {
+                    form.reportValidity();
                 }
 
                 return;
@@ -265,11 +333,139 @@ using a mailto: link addressed to contact@tahsinahmed.com.
 
             /*
             -------------------------------------------------
-            Build email body
+            Read fields
             -------------------------------------------------
             */
 
-            var body = [
+            name =
+                getValue("name");
+
+            email =
+                getValue("email");
+
+            subject =
+                getValue("subject");
+
+            message =
+                getValue("message");
+
+
+            /*
+            -------------------------------------------------
+            Validate name
+            -------------------------------------------------
+            */
+
+            if (
+                !name ||
+                name.length > MAX_NAME_LENGTH
+            ) {
+
+                showMessage(
+                    "Invalid name",
+                    "Please enter your name.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Validate email
+            -------------------------------------------------
+            */
+
+            if (
+                !isValidEmail(email)
+            ) {
+
+                setFieldError(
+                    emailEl,
+                    "Please enter a valid email address."
+                );
+
+                if (
+                    emailEl &&
+                    typeof emailEl.focus === "function"
+                ) {
+                    emailEl.focus();
+                }
+
+                showMessage(
+                    "Invalid email",
+                    "Please enter a valid email address.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Validate subject
+            -------------------------------------------------
+            */
+
+            if (
+                !subject ||
+                subject.length > MAX_SUBJECT_LENGTH
+            ) {
+
+                showMessage(
+                    "Invalid subject",
+                    "Please enter a subject.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Validate message
+            -------------------------------------------------
+            */
+
+            if (
+                !message ||
+                message.length > MAX_MESSAGE_LENGTH
+            ) {
+
+                showMessage(
+                    "Invalid message",
+                    "Please enter your message.",
+                    "warning"
+                );
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Attachment
+            -------------------------------------------------
+            */
+
+            file =
+                fileInput &&
+                fileInput.files &&
+                fileInput.files.length
+                    ? fileInput.files[0]
+                    : null;
+
+
+            /*
+            -------------------------------------------------
+            Build email
+            -------------------------------------------------
+            */
+
+            body = [
                 "New Contact Form Message",
                 "",
                 "Name: " + name,
@@ -279,27 +475,26 @@ using a mailto: link addressed to contact@tahsinahmed.com.
                 "Message:",
                 message,
                 "",
-                "Attachment selected: " + attachment,
+                "Attachment selected: " +
+                    (file ? file.name : "None"),
                 "",
-                "Sent from https://www.tahsinahmed.com/"
+                "Website: https://www.tahsinahmed.com/"
             ].join("\n");
 
 
             /*
             -------------------------------------------------
-            Build mailto URL
+            mailto URL
             -------------------------------------------------
             */
 
-            var mailto =
+            mailtoUrl =
                 "mailto:" +
-                encodeURIComponent(RECIPIENT) +
-
+                RECIPIENT +
                 "?subject=" +
                 encodeURIComponent(
                     "[Contact] " + subject
                 ) +
-
                 "&body=" +
                 encodeURIComponent(body);
 
@@ -310,7 +505,7 @@ using a mailto: link addressed to contact@tahsinahmed.com.
             -------------------------------------------------
             */
 
-            var originalBtnHTML =
+            originalBtnHTML =
                 submitBtn
                     ? submitBtn.innerHTML
                     : "";
@@ -318,20 +513,22 @@ using a mailto: link addressed to contact@tahsinahmed.com.
 
             if (submitBtn) {
 
-                submitBtn.disabled = true;
+                submitBtn.disabled =
+                    true;
 
                 submitBtn.innerHTML =
-                    'Opening&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
+                    "Opening...";
             }
 
 
             /*
             -------------------------------------------------
-            Open visitor's email application
+            Open email client
             -------------------------------------------------
             */
 
-            window.location.href = mailto;
+            window.location.href =
+                mailtoUrl;
 
 
             /*
@@ -345,78 +542,19 @@ using a mailto: link addressed to contact@tahsinahmed.com.
 
                     if (submitBtn) {
 
-                        submitBtn.disabled = false;
+                        submitBtn.disabled =
+                            false;
 
                         submitBtn.innerHTML =
                             originalBtnHTML;
                     }
 
-
-                    var previous =
-                        document.querySelector(
-                            ".contact-mail-fallback"
-                        );
-
-
-                    if (previous) {
-                        previous.remove();
-                    }
-
-
-                    var fallback =
-                        document.createElement("p");
-
-
-                    fallback.className =
-                        "contact-mail-fallback";
-
-
-                    fallback.style.marginTop =
-                        "15px";
-
-
-                    fallback.style.color =
-                        "#00006d";
-
-
-                    fallback.style.fontWeight =
-                        "600";
-
-
-                    var link =
-                        document.createElement("a");
-
-
-                    link.href =
-                        mailto;
-
-
-                    link.textContent =
-                        "click here to open it";
-
-
-                    fallback.appendChild(
-                        document.createTextNode(
-                            "If your email app did not open, "
-                        )
-                    );
-
-
-                    fallback.appendChild(link);
-
-
-                    fallback.appendChild(
-                        document.createTextNode(".")
-                    );
-
-
-                    form.parentNode.insertBefore(
-                        fallback,
-                        form.nextSibling
+                    showFallback(
+                        mailtoUrl
                     );
 
                 },
-                1200
+                1500
             );
         }
     );
