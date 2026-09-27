@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>Project | Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/img/favicon_v1.png">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/project.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="../assets/img/signature_of_tahsin.png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./publications.html">Publication</a></li>
+                    <li><a href="./project.html">Project</a></li>
+                    <li><a href="./certification.html">Certification</a></li>
+                    <li><a href="./awards.html">Awards</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header"><button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button></div>
+        <ul class="drawer-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./publications.html">Publication</a></li>
+            <li><a href="./project.html">Project</a></li>
+            <li><a href="./certification.html">Certification</a></li>
+            <li><a href="./awards.html">Awards</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <div class="page-content">
+        <div class="fadeIn row" style="width:100%;height:auto;animation-duration: 1.5s; margin-bottom: 1rem;">
+            <div class="col-md-12" id="left-hero">
+                <h1 class="hero-tag fadeInLeft" style="margin: 0;">Project</h1>
+                <p class="hero-des fadeIn delay-1s" style="margin-top: 0.5rem;">
+                    A showcase of diverse projects that reflect technical expertise, creative thinking, and practical problem-solving. Each project highlights a unique approach to addressing challenges and delivering meaningful outcomes.
+                </p>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-bar-horizontal">
+                <div class="filter-label-horizontal"><i>Filter:</i></div>
+                <div class="desktop-filter-horizontal">
+                    <button class="filter-btn-horizontal active" data-filter="all">All</button>
+                    <button class="filter-btn-horizontal" data-filter="cybersecurity">Cybersecurity</button>
+                </div>
+                <div class="mobile-filter-horizontal">
+                    <select id="filterSelect" class="filter-select-horizontal">
+                        <option value="all">All</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-section">
+            <div class="section-title">Cybersecurity</div>
+            <div class="section-description">Security projects demonstrating various attack vectors, defense mechanisms, and network security tools.</div>
+            <div class="projects-grid" id="projectsGrid">
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/firewall.png" alt="Automated Firewall Policy Validator"></div>
+                    <div class="card-body">
+                        <h3>Automated Firewall Policy Validator</h3>
+                        <div class="project-meta">Issued at: March, 2026</div>
+                        <p>This is a network automation tool proposed to Nagad Ltd. to quickly check whether a newly proposed firewall rule already exists in the current policy. It reduces duplicates, speeds up reviews, eliminates human error, and keeps the policy clean. Built entirely in‑house, it enhances operational efficiency and strengthens policy validation workflows.</p>
+                        <div class="tech-tags"><span>Python</span><span>REST API</span></div>
+                        <a href="https://github.com/tahsinnahmed/automated-firewall-policy-validator.git" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/DOS Attack.png" alt="DOS Attack - Email Bombing"></div>
+                    <div class="card-body">
+                        <h3>DOS Attack - Email Bombing</h3>
+                        <div class="project-meta">Issued at: September, 2024</div>
+                        <p>An email bomb is a denial-of-service attack that involves sending large volumes of messages to an email address. This project demonstrates the mechanism and helps understand how to defend against such attacks.</p>
+                        <div class="tech-tags"><span>Python</span></div>
+                        <a href="https://github.com/hack4tahsin/Email-Bombing" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/Ransomware.jpeg" alt="Malware - Ransomware"></div>
+                    <div class="card-body">
+                        <h3>Malware - Ransomware</h3>
+                        <div class="project-meta">Issued at: September, 2024</div>
+                        <p>Ransomware is malware that employs encryption to hold a victim's information at ransom. This project simulates encryption-based attacks for educational research and defense development.</p>
+                        <div class="tech-tags"><span>Python</span></div>
+                        <a href="https://github.com/hack4tahsin/Ransomware" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/Spyware.png" alt="Spyware - Keylogger"></div>
+                    <div class="card-body">
+                        <h3>Spyware - Keylogger</h3>
+                        <div class="project-meta">Issued at: September, 2024</div>
+                        <p>A keylogger monitors and records each keystroke on a device. This project demonstrates software-based keystroke logging for awareness and defensive purposes.</p>
+                        <div class="tech-tags"><span>Python</span></div>
+                        <a href="https://github.com/hack4tahsin/Keylogger" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/Brute Force Attack.jpeg" alt="Brute Force Attack - Dictionary Attack"></div>
+                    <div class="card-body">
+                        <h3>Brute Force Attack - Dictionary Attack</h3>
+                        <div class="project-meta">Issued at: September, 2024</div>
+                        <p>A brute force attack uses trial-and-error to decode passwords or encryption keys. This implementation focuses on dictionary-based methods for security testing.</p>
+                        <div class="tech-tags"><span>Python</span></div>
+                        <a href="https://github.com/hack4tahsin/Brute-Force-Attack" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cybersecurity">
+                    <div class="card-image"><img src="../assets/img/HELO Cryptography.png" alt="HELO Cryptography"></div>
+                    <div class="card-body">
+                        <h3>HELO Cryptography</h3>
+                        <div class="project-meta">Issued at: June, 2024</div>
+                        <p>HELO is a hybridized crytographic system, which maximizes the security level of resource-constrained devices (e.g. IoT) without reducing their performance.</p>
+                        <div class="tech-tags"><span>Python</span><span>Flask</span></div>
+                        <a href="https://helocrypto.pythonanywhere.com/" target="_blank" rel="noopener" class="project-link"><i class="fa fa-link"></i> Get The Source Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyStateMessage" style="display: none;">
+            <div style="text-align: center; padding: 3rem; color: #6c757d; font-size: 1.1rem;">
+                <i class="fas fa-folder-open"></i> No projects found in this category.
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
+</body>
+</html>

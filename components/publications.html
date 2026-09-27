@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>Publication | Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/img/favicon_v1.png">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/publications.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="../assets/img/signature_of_tahsin.png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./publications.html">Publication</a></li>
+                    <li><a href="./project.html">Project</a></li>
+                    <li><a href="./certification.html">Certification</a></li>
+                    <li><a href="./awards.html">Awards</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header"><button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button></div>
+        <ul class="drawer-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./publications.html">Publication</a></li>
+            <li><a href="./project.html">Project</a></li>
+            <li><a href="./certification.html">Certification</a></li>
+            <li><a href="./awards.html">Awards</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <div class="page-content">
+        <div class="fadeIn row" style="width:100%;height:auto;animation-duration: 1.5s; margin-bottom: 1rem;">
+            <div class="col-md-12" id="left-hero">
+                <h1 class="hero-tag contact-hero fadeInLeft" style="margin: 0;">Publication</h1>
+                <p class="hero-des contact-des fadeIn delay-1s" style="margin-top: 0.5rem;">
+                    A journey of ideas captured in print. Each publication tells a story of inquiry, collaboration, and the pursuit of excellence, reflecting a deep passion for learning and sharing knowledge.
+                </p>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-bar">
+                <div class="filter-label"><i>Filter:</i></div>
+                <div class="desktop-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="original">Original Research</button>
+                    <button class="filter-btn" data-filter="review">Review Article</button>
+                </div>
+                <div class="mobile-filter">
+                    <select id="filterSelect" class="filter-select-dropdown">
+                        <option value="all">All</option>
+                        <option value="original">Original Research</option>
+                        <option value="review">Review Article</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="row" id="work-row">
+                <div class="originalResearch section-item" data-section="original" id="originalResearch">
+                    <div class="work-des">
+                        <h1>Original Research</h1>
+                        <ul class="todo-list">
+                            <li>
+                                <span class="order">[1]</span>
+                                <span class="paper"><strong>Ahmed, T.</strong>, Saha, A., Nuhan, A., Noor, N. A. B. M., Ahmed, M. F., &amp; Hossain, M. I. (2026). HELO Cryptography: A Lightweight Cryptographic System for Enhancing IoT Security on P2P Data Transmission. arXiv Preprint. <a href="https://doi.org/10.48550/arXiv.2605.03948" target="_blank" rel="noopener" style="text-decoration: none">https://doi.org/10.48550/arXiv.2605.03948</a>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="reviewArticle section-item" data-section="review" id="reviewArticle" style="margin-top: 1%;">
+                    <div class="work-des">
+                        <h1>Review Article</h1>
+                        <ul class="todo-list">
+                            <li>
+                                <span class="order">[1]</span>
+                                <span class="paper"><strong>Ahmed, T.</strong>, Raj, F. K., Sarkar, N., Ferdousi, T. R., Ferdous, M. S., &amp; Shajalal, M. (2026). A Systematic Literature Review on Detecting BEC Cyberattacks Using Machine Learning. SSRN Preprint. <a href="https://dx.doi.org/10.2139/ssrn.7308662" target="_blank" rel="noopener" style="text-decoration: none">https://dx.doi.org/10.2139/ssrn.7308662</a>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyStateMessage" style="display: none;">
+            <div class="empty-message">
+                <i class="fas fa-file-alt"></i>
+                No publications found in this category.
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/publications.js"></script>
+</body>
+</html>

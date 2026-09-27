@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>Certification | Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/img/favicon_v1.png">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/certification.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="../assets/img/signature_of_tahsin.png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./publications.html">Publication</a></li>
+                    <li><a href="./project.html">Project</a></li>
+                    <li><a href="./certification.html">Certification</a></li>
+                    <li><a href="./awards.html">Awards</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header"><button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button></div>
+        <ul class="drawer-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./publications.html">Publication</a></li>
+            <li><a href="./project.html">Project</a></li>
+            <li><a href="./certification.html">Certification</a></li>
+            <li><a href="./awards.html">Awards</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <div class="page-content">
+        <div class="fadeIn row hero-section" style="width:100%; animation-duration: 1.5s; margin-bottom: 2rem;">
+            <div class="col-md-12" id="left-hero">
+                <h1 class="hero-tag fadeInLeft">Certification</h1>
+                <p class="hero-des fadeIn delay-1s">A compilation of certifications that validate knowledge, skills, and commitment to maintaining high standards of excellence in relevant fields.</p>
+            </div>
+        </div>
+
+        <div class="cert-grid">
+            <div class="cert-card" data-img="../assets/img/certification/Cyber Security 101/Cyber Security 101.jpg" data-credential="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-ICZGWM3Q5F.pdf" data-title="Cyber Security 101">
+                <div class="cert-img"><img src="../assets/img/certification/Cyber Security 101/Cyber Security 101.jpg" alt="Cyber Security 101"></div>
+                <div class="cert-body">
+                    <h3>Cyber Security 101</h3>
+                    <p class="issuer">TryHackMe</p>
+                    <p class="project-meta">Issued at: December 2025</p>
+                    <p class="description">Gained foundational knowledge in cybersecurity, including computer networking and cryptography. Learned Linux, Windows, Active Directory, offensive &amp; defensive security hands-on.</p>
+                    <div class="tech-tags"><span>Computer Networks</span><span>Linux &amp; Windows</span><span>Active Directory</span><span>Offensive Security</span><span>Defensive Security</span></div>
+                    <button class="view-btn" onclick="openModal(this)">View Certificate</button>
+                </div>
+            </div>
+
+            <div class="cert-card" data-img="../assets/img/certification/Cryptography 1/Cryptography 1.png" data-credential="https://www.coursera.org/account/accomplishments/verify/W6HCSN7STQQR" data-title="Cryptography I">
+                <div class="cert-img"><img src="../assets/img/certification/Cryptography 1/Cryptography 1.png" alt="Cryptography I"></div>
+                <div class="cert-body">
+                    <h3>Cryptography I</h3>
+                    <p class="issuer">Stanford University</p>
+                    <p class="project-meta">Issued at: September 2024</p>
+                    <p class="description">Advanced cryptography course covering mathematical aspects, encryption algorithms, and security proofs. Challenging exam but highly rewarding.</p>
+                    <div class="tech-tags"><span>Cryptography</span></div>
+                    <button class="view-btn" onclick="openModal(this)">View Certificate</button>
+                </div>
+            </div>
+
+            <div class="cert-card" data-img="../assets/img/certification/Python 3 Programming/Python 3 Programming.jpg" data-credential="https://www.coursera.org/account/accomplishments/specialization/VZE5NSGJNEBY" data-title="Python 3 Programming">
+                <div class="cert-img"><img src="../assets/img/certification/Python 3 Programming/Python 3 Programming.jpg" alt="Python 3"></div>
+                <div class="cert-body">
+                    <h3>Python 3 Programming</h3>
+                    <p class="issuer">University of Michigan</p>
+                    <p class="project-meta">Issued at: June 2020</p>
+                    <p class="description">Comprehensive Python course covering basics to advanced concepts, with projects that solidified my love for Python.</p>
+                    <div class="tech-tags"><span>Python</span></div>
+                    <button class="view-btn" onclick="openModal(this)">View Certificate</button>
+                </div>
+            </div>
+
+            <div class="cert-card" data-img="../assets/img/certification/Full Stack MERN Web Development with JavaScript/tahsinahmed-Full-Stack-MERN-Web-Development-with-JavaScript-FSMERN-Content-Certificate-V3.0-Bohubrihi.jpg" data-credential="https://drive.google.com/file/d/1nKw25RvKvX21FcWiiAHrHv5i26wRwPQK/view?usp=sharing" data-title="Full Stack MERN Web Development">
+                <div class="cert-img"><img src="../assets/img/certification/Full Stack MERN Web Development with JavaScript/tahsinahmed-Full-Stack-MERN-Web-Development-with-JavaScript-FSMERN-Content-Certificate-V3.0-Bohubrihi.jpg" alt="MERN Stack"></div>
+                <div class="cert-body">
+                    <h3>Full Stack MERN Web Development</h3>
+                    <p class="issuer">Bohubrihi</p>
+                    <p class="project-meta">Issued at: October 2022</p>
+                    <p class="description">Complete MERN stack training: HTML, CSS, JavaScript, React, Node.js, Express, MongoDB. Built several full‑stack projects.</p>
+                    <div class="tech-tags"><span>MongoDB</span><span>Express.js</span><span>React</span><span>Node.js</span></div>
+                    <button class="view-btn" onclick="openModal(this)">View Certificate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Certificate">
+                <div class="modal-footer">
+                    <button id="copyCredBtn" onclick="copyCredential()">Copy Credential Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/certification.js"></script>
+</body>
+</html>

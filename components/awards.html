@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>Awards | Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/img/favicon_v1.png">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/awards.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="../assets/img/signature_of_tahsin.png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./publications.html">Publication</a></li>
+                    <li><a href="./project.html">Project</a></li>
+                    <li><a href="./certification.html">Certification</a></li>
+                    <li><a href="./awards.html">Awards</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header"><button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button></div>
+        <ul class="drawer-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./publications.html">Publication</a></li>
+            <li><a href="./project.html">Project</a></li>
+            <li><a href="./certification.html">Certification</a></li>
+            <li><a href="./awards.html">Awards</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <div class="page-content">
+        <div class="fadeIn row" style="width:100%;height:auto;animation-duration: 1.5s; margin-bottom: 1rem;">
+            <div class="col-md-12" id="left-hero">
+                <h1 class="hero-tag fadeInLeft" style="margin: 0;">Honors &amp; Awards</h1>
+                <p class="hero-des fadeIn delay-1s" style="margin-top: 0.5rem;">A collection of accolades and recognition received for outstanding performance, dedication, and contributions across academic and professional endeavors.</p>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-bar-horizontal">
+                <div class="filter-label-horizontal"><i>Filter:</i></div>
+                <div class="desktop-filter-horizontal">
+                    <button class="filter-btn-horizontal active" data-filter="all">All</button>
+                    <button class="filter-btn-horizontal" data-filter="competition">Competitive Achievement</button>
+                    <button class="filter-btn-horizontal" data-filter="fellowship">Fellowship</button>
+                </div>
+                <div class="mobile-filter-horizontal">
+                    <select id="filterSelect" class="filter-select-horizontal">
+                        <option value="all">All</option>
+                        <option value="competition">Competitive Achievement</option>
+                        <option value="fellowship">Fellowship</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-section="competition">
+            <div class="section-title">Competitive Achievement</div>
+            <div class="section-description">Recognitions that highlight my technical expertise and creative abilities.</div>
+            <div class="awards-grid" id="competitionGrid">
+                <div class="award-card" data-category="competition" data-img="../assets/img/awards/National STEAM Olympiad/National STEAM Olympiad.jpg">
+                    <div class="award-img"><img src="../assets/img/awards/National STEAM Olympiad/National STEAM Olympiad.jpg" alt="National STEAM Olympiad"></div>
+                    <div class="award-body">
+                        <h3>Divisional Champion &amp; Top 10 Finalist at National STEAM Olympiad</h3>
+                        <p class="issuer">Ministry of Education Bangladesh and Itesseract</p>
+                        <p class="project-meta">Issued at: July 2024</p>
+                        <p class="description">After becoming the Dhaka divisional champion, I advanced to become a top 10 finalist nationally in the National STEAM Olympiad, specifically in the "ICT and Digital Security" segment. My project was based on Cryptography.</p>
+                        <div class="tech-tags"><span>Cybersecurity</span><span>IoT Security</span><span>Cryptography</span><span>Python</span></div>
+                        <button class="view-btn" onclick="openModal(this)">View Award</button>
+                    </div>
+                </div>
+
+                <div class="award-card" data-category="competition" data-img="../assets/img/awards/Intra University Programming Contest/Intra university programming contest.png">
+                    <div class="award-img"><img src="../assets/img/awards/Intra University Programming Contest/Intra university programming contest.png" alt="Intra University Programming Contest"></div>
+                    <div class="award-body">
+                        <h3>13th at Intra University Programming Contest</h3>
+                        <p class="issuer">BRAC University</p>
+                        <p class="project-meta">Issued at: November 2022</p>
+                        <p class="description">My team "Code Breakers" achieved 13th position among 187 teams in the final round. We had to battle with around 400 competitors in the first round to get ticket for the final round, where we achieved 8th position. It was a long 4 hours of brain‑hammering but was quite fun. <br><br> <a href="https://toph.co/c/bracu-intra-university-junior-contest-2022/standings" target="_blank" rel="noopener" style="color:#0066cc; text-decoration:none;"><i class="fa fa-link"></i> View standings</a></p>
+                        <div class="tech-tags"><span>C++</span><span>Python</span></div>
+                        <button class="view-btn" onclick="openModal(this)">View Award</button>
+                    </div>
+                </div>
+
+                <div class="award-card" data-category="competition" data-img="../assets/img/awards/BUCC Hackathon 2020/BUCC Hackathon Championship Certificate.jpg">
+                    <div class="award-img"><img src="../assets/img/awards/BUCC Hackathon 2020/BUCC Hackathon Championship Certificate.jpg" alt="BUCC Hackathon Champion"></div>
+                    <div class="award-body">
+                        <h3>Champion at BUCC Hackathon</h3>
+                        <p class="issuer">BRAC University</p>
+                        <p class="project-meta">Issued at: December 2020</p>
+                        <p class="description">BRAC University organized a Hackathon named "R@D!X 2.0", where my team made a project called "BuTonic" - a meditation and consultation app. We took the place of championship. It was our first Hackathon, and I was in the lead of UX Design.</p>
+                        <div class="tech-tags"><span>Adobe XD</span><span>Adobe Premier Pro</span><span>PowerPoint</span></div>
+                        <button class="view-btn" onclick="openModal(this)">View Award</button>
+                    </div>
+                </div>
+
+                <div class="award-card" data-category="competition" data-img="../assets/img/awards/MUBC Science Fair 2013/MUBC Science Fair 2013.jpg">
+                    <div class="award-img"><img src="../assets/img/awards/MUBC Science Fair 2013/MUBC Science Fair 2013.jpg" alt="Science Festival & Olympiad"></div>
+                    <div class="award-body">
+                        <h3>2nd Runner-up at Science Festival &amp; Olympiad</h3>
+                        <p class="issuer">Monipur High School</p>
+                        <p class="project-meta">Issued at: September 2013</p>
+                        <p class="description">I along with my team participated in "Science Festival &amp; Olympiad" organized by Monipur High School and College. My project "Save Trees from Extinction" won 2nd Runner Up, which inspired me to get continuously involved in scientific work.</p>
+                        <div class="tech-tags"><span>Save Trees from Extinction</span></div>
+                        <button class="view-btn" onclick="openModal(this)">View Award</button>
+                    </div>
+                </div>
+
+                <div class="award-card" data-category="competition" data-img="../assets/img/ECA/Bangladesh Sishu Academy/Tabla Certificate.png">
+                    <div class="award-img"><img src="../assets/img/ECA/Bangladesh Sishu Academy/Tabla Certificate.png" alt="Tabla Certificate"></div>
+                    <div class="award-body">
+                        <h3>2nd Runner-up in Playing Musical Instrument (Tabla)</h3>
+                        <p class="issuer">Bangladesh Sishu Academy</p>
+                        <p class="project-meta">Issued at: August 2010</p>
+                        <p class="description">I learned Tabla at Bangladesh Sishu Academy and became my teacher's favorite student due to my enthusiasm and dedication. I passed the course by securing 3rd position in 2010.</p>
+                        <div class="tech-tags"><span>Tabla</span></div>
+                        <button class="view-btn" onclick="openModal(this)">View Award</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyStateMessage" style="display: none;">
+            <div style="text-align: center; padding: 3rem; color: #6c757d; font-size: 1.1rem;">
+                <i class="fas fa-trophy" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                No awards found in this category.
+            </div>
+        </div>
+    </div>
+
+    <div id="awardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Award Certificate">
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/awards.js"></script>
+</body>
+</html>

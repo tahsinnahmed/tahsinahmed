@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>About | Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/img/favicon_v1.png">
+    <meta name="theme-color" content="rgb(0, 0, 109)">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="../assets/img/signature_of_tahsin.png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./publications.html">Publication</a></li>
+                    <li><a href="./project.html">Project</a></li>
+                    <li><a href="./certification.html">Certification</a></li>
+                    <li><a href="./awards.html">Awards</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header"><button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button></div>
+        <ul class="drawer-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./publications.html">Publication</a></li>
+            <li><a href="./project.html">Project</a></li>
+            <li><a href="./certification.html">Certification</a></li>
+            <li><a href="./awards.html">Awards</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <div class="page-content">
+        <div class="fadeIn row" style="width:100%;height:auto;animation-duration: 1.5s; margin-bottom: 1rem;">
+            <div class="col-md-12" id="left-hero">
+                <h1 class="hero-tag contact-hero fadeInLeft" style="color: black; font-weight: bold; margin: 0;">About Me</h1>
+                <p class="hero-des contact-des fadeIn delay-1s" style="margin-top: 0.5rem;">
+                    An overview of my academic background, professional journey, and core values. This section provides insight into who I am, what drives me, and the impact I aspire to create.
+                </p>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-bar-horizontal">
+                <div class="filter-label-horizontal"><i>Filter:</i></div>
+                <div class="desktop-filter-horizontal">
+                    <button class="filter-btn-horizontal active" data-filter="all">All</button>
+                    <button class="filter-btn-horizontal" data-filter="education">Education</button>
+                    <button class="filter-btn-horizontal" data-filter="experience">Experience</button>
+                    <button class="filter-btn-horizontal" data-filter="skills">My Skills</button>
+                    <button class="filter-btn-horizontal" data-filter="research">Research Interest</button>
+                </div>
+                <div class="mobile-filter-horizontal">
+                    <select id="filterSelect" class="filter-select-horizontal">
+                        <option value="all">All</option>
+                        <option value="education">Education</option>
+                        <option value="experience">Experience</option>
+                        <option value="skills">My Skills</option>
+                        <option value="research">Research Interest</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-section="education">
+            <div class="section-title">Education</div>
+            <div class="section-description">My academic journey comprises degrees that have built my expertise in the computer science domain.</div>
+            <div class="cards-grid">
+                <div class="card" data-category="education">
+                    <div class="card-img"><img src="../assets/img/about/Convocation of BRAC.jpg" alt="BRAC Convocation"></div>
+                    <div class="card-content">
+                        <div class="card-title">BSc in Computer Science</div>
+                        <div class="card-short-desc">BRAC University</div>
+                        <button class="view-btn" data-modal="modal-bsc">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-section="experience">
+            <div class="section-title">Experience</div>
+            <div class="section-description">Professional roles where I applied my skills in real‑world environments.</div>
+            <div class="cards-grid">
+                <div class="card" data-category="experience">
+                    <div class="card-img"><img src="../assets/img/about/Internship_Nagad_Tahsin Ahmed.jpg" alt="Nagad Internship"></div>
+                    <div class="card-content">
+                        <div class="card-title">Intern - Network Infra &amp; Security</div>
+                        <div class="card-short-desc">Nagad Ltd.</div>
+                        <button class="view-btn" data-modal="modal-nagad">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-section="skills">
+            <div class="section-title">My Skills</div>
+            <div class="section-description">Technical competencies I have developed through coursework, projects, and self‑learning.</div>
+            <div class="cards-grid">
+                <div class="card" data-category="skills">
+                    <div class="card-img"><img src="../assets/img/about/coding.jpg" alt="programming_language"></div>
+                    <div class="card-content">
+                        <div class="card-title">Programming Language</div>
+                        <div class="card-short-desc">Python, JavaScript</div>
+                    </div>
+                </div>
+                <div class="card" data-category="skills">
+                    <div class="card-img"><img src="../assets/img/about/360_F_826091667_3JZxVTR4adskWayJ3klrlxrzqfMwt8Va.jpg" alt="security_image_1"></div>
+                    <div class="card-content">
+                        <div class="card-title">Cybersecurity</div>
+                        <div class="card-short-desc">Cryptography, Phishing, Wazuh, Suricata, Wireshark, Hydra, Gobuster, OWASP ZAP, Tenable Nessus, and so on.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-section="research">
+            <div class="section-title">Research Interest</div>
+            <div class="section-description">Areas I am passionate about exploring include groundbreaking ideas and meaningful innovations that drive change.</div>
+            <div class="cards-grid">
+                <div class="card" data-category="research">
+                    <div class="card-img"><img src="../assets/img/about/security_image.jpg" alt="security_image"></div>
+                    <div class="card-content"><div class="card-title">Cybersecurity</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyStateMessage" style="display: none;">
+            <div class="empty-message"><i class="fas fa-folder-open"></i>No content found in this category.</div>
+        </div>
+    </div>
+
+    <div id="modal-bsc" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>BSc in Computer Science</h2><button class="close-modal">&times;</button></div>
+            <div class="modal-body">
+                <div class="modal-detail-row">
+                    <div style="flex:1; text-align: center;">
+                        <img class="work-hero-img" src="../assets/img/about/Convocation of BRAC.jpg" alt="BRAC">
+                    </div>
+                    <div style="flex:2">
+                        <div class="technologies">
+                            <div class="info-item"><h2>University</h2><span class="tech-stack"><a href="https://www.bracu.ac.bd/" target="_blank" rel="noopener">BRAC University</a></span></div>
+                            <div class="info-row">
+                                <div class="info-item"><h2>Degree</h2><span class="tech-stack">Computer Science</span></div>
+                                <div class="info-item"><h2>Department</h2><span class="tech-stack"><a href="https://cse.sds.bracu.ac.bd/" target="_blank" rel="noopener">Computer Science &amp; Engineering</a></span></div>
+                            </div>
+                            <div class="info-item"><h2>Graduation</h2><span class="tech-stack">February 2025</span></div>
+                            <div class="info-row">
+                                <div class="info-item"><h2>CGPA</h2><span class="tech-stack">3.49/4</span></div>
+                                <div class="info-item"><h2>Percentage</h2><span class="tech-stack">87.25%</span></div>
+                            </div>
+                            <div class="info-item"><h2>Recognition</h2><span class="tech-stack">Appeared twice on the Dean's List (Summer 2020 &amp; Spring 2021).</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-nagad" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Intern - Network Infra &amp; Security</h2><button class="close-modal">&times;</button></div>
+            <div class="modal-body">
+                <div class="modal-detail-row">
+                    <div style="flex:1; text-align: center;">
+                        <img class="work-hero-img" src="../assets/img/about/Internship_Nagad_Tahsin Ahmed.jpg" alt="Nagad">
+                    </div>
+                    <div style="flex:2">
+                        <div class="technologies">
+                            <div class="info-row">
+                                <div class="info-item"><h2>Organization</h2><span class="tech-stack"><a href="https://nagad.com.bd/" target="_blank" rel="noopener">Nagad Ltd.</a></span></div>
+                                <div class="info-item"><h2>Designation</h2><span class="tech-stack">Intern</span></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item"><h2>Unit</h2><span class="tech-stack">Network Infra &amp; Security</span></div>
+                                <div class="info-item"><h2>Department</h2><span class="tech-stack">IT Infrastructure</span></div>
+                                <div class="info-item"><h2>Division</h2><span class="tech-stack">Technology &amp; Business Assurance</span></div>
+                            </div>
+                            <div class="info-item"><h2>Time Period</h2><span class="tech-stack">November 2025 – March 2026</span></div>
+                            <div class="info-item">
+                                <h2>Responsibilities</h2>
+                                <div class="responsibilities-container">
+                                    <div class="column">
+                                        <div class="tech-stack">1. Vulnerability assessment using Tenable Nessus.</div>
+                                        <div class="tech-stack">2. Managed RAVPN access via Windows AD &amp; portal.</div>
+                                        <div class="tech-stack">3. Automated firewall policy validation using Python.</div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="tech-stack">4. Monitored network health using Zabbix.</div>
+                                        <div class="tech-stack">5. Documented 800+ management records for audit.</div>
+                                        <div class="tech-stack">6. Collaborated with Bangladesh Bank for budget approval.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/about.js"></script>
+</body>
+</html>
