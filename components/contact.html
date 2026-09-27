@@ -1,85 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, shrink-to-fit=yes"
     >
-
     <title>Contact | Tahsin Ahmed</title>
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
     >
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
-
     <link
         rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     >
-
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
-
     <link
         rel="icon"
         type="image/png"
         href="../assets/img/favicon_v1.png"
     >
-
-    <link
-        rel="stylesheet"
-        href="../css/header.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/contact.css"
-    >
-
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/contact.css">
 </head>
 
 <body>
 
     <header class="site-header">
-
         <div class="header-container">
 
             <div class="logo-link">
-
                 <img
                     src="../assets/img/favicon_v1.png"
                     class="logo-img"
                     alt="logo"
                 >
-
                 <span class="logo-text">
-
                     <img
                         src="../assets/img/signature_of_tahsin (1).png"
                         class="sign"
                         alt="Tahsin Ahmed"
                     >
-
                 </span>
-
             </div>
 
             <nav class="desktop-nav">
-
                 <ul>
-
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="./about.html">About</a></li>
                     <li><a href="./publications.html">Publication</a></li>
@@ -87,9 +62,7 @@
                     <li><a href="./certification.html">Certification</a></li>
                     <li><a href="./awards.html">Awards</a></li>
                     <li><a href="./contact.html">Contact</a></li>
-
                 </ul>
-
             </nav>
 
             <button
@@ -103,16 +76,10 @@
             </button>
 
         </div>
-
     </header>
 
-    <div
-        class="mobile-drawer"
-        id="mobileDrawer"
-    >
-
+    <div class="mobile-drawer" id="mobileDrawer">
         <div class="drawer-header">
-
             <button
                 class="close-drawer"
                 id="closeDrawerBtn"
@@ -120,11 +87,9 @@
             >
                 &times;
             </button>
-
         </div>
 
         <ul class="drawer-nav">
-
             <li><a href="../index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./publications.html">Publication</a></li>
@@ -132,15 +97,10 @@
             <li><a href="./certification.html">Certification</a></li>
             <li><a href="./awards.html">Awards</a></li>
             <li><a href="./contact.html">Contact</a></li>
-
         </ul>
-
     </div>
 
-    <div
-        class="drawer-overlay"
-        id="drawerOverlay"
-    ></div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
 
     <div class="page-content">
 
@@ -149,32 +109,24 @@
             style="width:100%; animation-duration:1.5s;"
         >
 
-            <div
-                class="col-md-6"
-                id="left-hero"
-            >
+            <div class="col-md-6" id="left-hero">
 
                 <h1 class="hero-tag contact-hero fadeInLeft">
                     Let's Get In Touch
                 </h1>
 
                 <p class="hero-des contact-des">
-                    Interested in discussing an idea,
-                    exploring a collaboration,
-                    or simply connecting? I welcome
-                    conversations that inspire, challenge,
-                    and create value. Feel free to reach out.
+                    Interested in discussing an idea, exploring a
+                    collaboration, or simply connecting? I welcome
+                    conversations that inspire, challenge, and create
+                    value. Feel free to reach out.
                 </p>
 
                 <br>
 
-                <form
-                    class="input-container"
-                    id="contactForm"
-                >
+                <form class="input-container" id="contactForm">
 
                     <div class="form-group">
-
                         <label for="name">
                             <b style="color:rgb(0,0,109);">
                                 Full Name
@@ -190,13 +142,11 @@
                             maxlength="200"
                             required
                         >
-
                     </div>
 
                     <br>
 
                     <div class="form-group">
-
                         <label for="email">
                             <b style="color:rgb(0,0,109);">
                                 Email Address
@@ -213,13 +163,11 @@
                             maxlength="254"
                             required
                         >
-
                     </div>
 
                     <br>
 
                     <div class="form-group">
-
                         <label for="subject">
                             <b style="color:rgb(0,0,109);">
                                 Subject
@@ -235,13 +183,11 @@
                             maxlength="300"
                             required
                         >
-
                     </div>
 
                     <br>
 
                     <div class="form-group">
-
                         <label for="message">
                             <b style="color:rgb(0,0,109);">
                                 Message
@@ -257,13 +203,11 @@
                             maxlength="10000"
                             required
                         ></textarea>
-
                     </div>
 
                     <br>
 
                     <div class="form-group">
-
                         <label
                             for="file"
                             class="custom-file-upload"
@@ -282,20 +226,13 @@
                         <span id="file-chosen">
                             No file chosen
                         </span>
-
                     </div>
 
                     <small class="upload-warning d-block mt-1">
-
                         <i class="fa fa-exclamation-triangle"></i>
-
                         <b>Warning:</b>
-
-                        With a browser-only email form,
-                        the selected file cannot be automatically
-                        attached. You can attach it manually
-                        in your email application.
-
+                        Attachments cannot be automatically attached
+                        by a browser-only email form.
                     </small>
 
                     <br>
@@ -321,13 +258,9 @@
 
             </div>
 
-            <div
-                class="col-md-6"
-                id="hero-right"
-            >
+            <div class="col-md-6" id="hero-right">
 
                 <div class="map-wrapper">
-
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.437204246382!2d90.36592396229216!3d23.80629729455645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c72a7c0d0b0d%3A0x8c5c7f2c5f5c5f5c!2sMirpur-1%2C%20Dhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000"
                         width="100%"
@@ -338,7 +271,6 @@
                         referrerpolicy="no-referrer-when-downgrade"
                         title="Location map"
                     ></iframe>
-
                 </div>
 
             </div>
@@ -348,8 +280,7 @@
     </div>
 
     <script src="../js/main.js"></script>
-    <script src="../js/contact.js"></script>
+    <script src="../js/contact-static.js?v=20260928"></script>
 
 </body>
-
 </html>
