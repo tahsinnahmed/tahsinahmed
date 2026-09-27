@@ -60,10 +60,8 @@
                 <br />
 
                 <form class="input-container" id="contactForm" novalidate>
-                    <input type="hidden" name="_subject" value="New contact from tahsinahmed.com">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="text" name="_honey" style="display:none">
+                    <!-- Honeypot: bots fill this, humans don't see it -->
+                    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
                     <div class="form-group">
                         <label for="name"><b style="color: rgb(0, 0, 109);">Full Name</b></label>
