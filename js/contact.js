@@ -1,186 +1,294 @@
-/*
- * Tahsin Ahmed - Contact Form
- *
- * Static browser-only implementation.
- * No backend.
- * No API.
- * No Cloudflare Worker endpoint.
- *
- * The form opens the visitor's email application using mailto:.
- */
-
 (function () {
+
     "use strict";
 
-    var RECIPIENT = "contact@tahsinahmed.com";
+    var FORM_ENDPOINT = "/api/contact";
 
-    var form = document.getElementById("contactForm");
-    var submitButton = document.getElementById("submit");
-    var emailInput = document.getElementById("email");
-    var fileInput = document.getElementById("file");
-    var fileChosen = document.getElementById("file-chosen");
+    var form =
+        document.getElementById("contactForm");
+
+    var submitBtn =
+        document.getElementById("submit");
+
+    var emailEl =
+        document.getElementById("email");
+
+    var fileInput =
+        document.getElementById("file");
+
+    var fileChosen =
+        document.getElementById("file-chosen");
+
 
     if (!form) {
         return;
     }
 
-    function trim(value) {
-        return String(value || "").replace(/^\s+|\s+$/g, "");
-    }
-
-    function getValue(id) {
-        var element = document.getElementById(id);
-        return element ? trim(element.value) : "";
-    }
 
     function isValidEmail(value) {
-        var email = trim(value);
 
-        if (!email || email.length > 254) {
-            return false;
-        }
+        var email =
+            String(value || "")
+                .replace(/^\s+|\s+$/g, "");
 
-        if (email.indexOf("..") !== -1) {
-            return false;
-        }
-
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        return (
+            email.length >= 3 &&
+            email.length <= 254 &&
+            email.indexOf("..") === -1 &&
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        );
     }
 
-    function resetFileLabel() {
-        if (fileChosen) {
-            fileChosen.textContent = "No file chosen";
-        }
-    }
 
-    if (fileInput && fileChosen) {
-        fileInput.addEventListener("change", function () {
-            if (fileInput.files && fileInput.files.length > 0) {
-                fileChosen.textContent = fileInput.files[0].name;
-            } else {
-                resetFileLabel();
-            }
-        });
-    }
-
-    if (emailInput) {
-        emailInput.addEventListener("input", function () {
-            if (!emailInput.value || isValidEmail(emailInput.value)) {
-                emailInput.setCustomValidity("");
-            } else {
-                emailInput.setCustomValidity(
-                    "Please enter a valid email address."
-                );
-            }
-        });
-    }
-
-    form.addEventListener("submit", function (event) {
-        var name;
-        var email;
-        var subject;
-        var message;
-        var attachmentName;
-        var body;
-        var mailtoUrl;
-        var originalButtonHTML;
-
-        event.preventDefault();
+    function showAlert(
+        title,
+        message,
+        icon
+    ) {
 
         if (
-            typeof form.checkValidity === "function" &&
-            !form.checkValidity()
+            typeof window.Swal !== "undefined" &&
+            window.Swal &&
+            typeof window.Swal.fire === "function"
         ) {
-            if (typeof form.reportValidity === "function") {
-                form.reportValidity();
+
+            window.Swal.fire(
+                {
+                    title:
+                        title,
+
+                    text:
+                        message,
+
+                    icon:
+                        icon || "info",
+
+                    confirmButtonColor:
+                        "#00006d"
+                }
+            );
+
+        } else {
+
+            window.alert(
+                title +
+                "\n\n" +
+                message
+            );
+        }
+    }
+
+
+    if (emailEl) {
+
+        emailEl.addEventListener(
+            "input",
+            function () {
+
+                emailEl.setCustomValidity(
+                    !emailEl.value ||
+                    isValidEmail(emailEl.value)
+                        ? ""
+                        : "Please enter a valid email address."
+                );
             }
-            return;
-        }
+        );
+    }
 
-        name = getValue("name");
-        email = getValue("email");
-        subject = getValue("subject");
-        message = getValue("message");
 
-        if (!name) {
-            window.alert("Please enter your name.");
-            return;
-        }
+    if (
+        fileInput &&
+        fileChosen
+    ) {
 
-        if (!isValidEmail(email)) {
-            if (emailInput) {
-                emailInput.setCustomValidity(
-                    "Please enter a valid email address."
+        fileInput.addEventListener(
+            "change",
+            function () {
+
+                fileChosen.textContent =
+                    (
+                        fileInput.files &&
+                        fileInput.files.length > 0
+                    )
+                        ? fileInput.files[0].name
+                        : "No file chosen";
+            }
+        );
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async function (event) {
+
+            var formData;
+            var response;
+            var responseText;
+            var data;
+            var originalHTML;
+
+
+            event.preventDefault();
+
+
+            if (
+                typeof form.checkValidity === "function" &&
+                !form.checkValidity()
+            ) {
+
+                if (
+                    typeof form.reportValidity === "function"
+                ) {
+                    form.reportValidity();
+                }
+
+                return;
+            }
+
+
+            if (
+                !emailEl ||
+                !isValidEmail(emailEl.value)
+            ) {
+
+                showAlert(
+                    "Invalid email",
+                    "Please enter a valid email address.",
+                    "warning"
                 );
 
-                if (typeof emailInput.focus === "function") {
-                    emailInput.focus();
+                return;
+            }
+
+
+            formData =
+                new FormData(form);
+
+
+            originalHTML =
+                submitBtn
+                    ? submitBtn.innerHTML
+                    : "";
+
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML =
+                    "Sending...";
+            }
+
+
+            try {
+
+                response =
+                    await fetch(
+                        FORM_ENDPOINT,
+                        {
+                            method:
+                                "POST",
+
+                            body:
+                                formData,
+
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                responseText =
+                    await response.text();
+
+
+                try {
+
+                    data =
+                        JSON.parse(
+                            responseText
+                        );
+
+                } catch (parseError) {
+
+                    console.error(
+                        "Invalid server response:",
+                        response.status,
+                        responseText
+                    );
+
+                    throw new Error(
+                        "Invalid server response (" +
+                        response.status +
+                        ")."
+                    );
+                }
+
+
+                if (
+                    !response.ok ||
+                    !data ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data &&
+                        data.error
+                            ? data.error
+                            : "Unable to send the message."
+                    );
+                }
+
+
+                form.reset();
+
+                if (emailEl) {
+                    emailEl.setCustomValidity("");
+                }
+
+                if (fileChosen) {
+                    fileChosen.textContent =
+                        "No file chosen";
+                }
+
+
+                showAlert(
+                    "Message sent!",
+                    "Your message has been sent successfully.",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Contact form error:",
+                    error
+                );
+
+
+                showAlert(
+                    "Message not sent",
+                    error &&
+                    error.message
+                        ? error.message
+                        : "Unable to send the message right now.",
+                    "error"
+                );
+
+
+            } finally {
+
+                if (submitBtn) {
+
+                    submitBtn.disabled =
+                        false;
+
+                    submitBtn.innerHTML =
+                        originalHTML;
                 }
             }
-
-            window.alert("Please enter a valid email address.");
-            return;
         }
+    );
 
-        if (!subject) {
-            window.alert("Please enter a subject.");
-            return;
-        }
-
-        if (!message) {
-            window.alert("Please enter your message.");
-            return;
-        }
-
-        attachmentName = "None";
-
-        if (
-            fileInput &&
-            fileInput.files &&
-            fileInput.files.length > 0
-        ) {
-            attachmentName = fileInput.files[0].name;
-        }
-
-        body =
-            "New Contact Form Message\n\n" +
-            "Name: " + name + "\n" +
-            "Email: " + email + "\n" +
-            "Subject: " + subject + "\n\n" +
-            "Message:\n" +
-            message + "\n\n" +
-            "Attachment selected: " +
-            attachmentName + "\n\n" +
-            "Website: https://www.tahsinahmed.com/";
-
-        mailtoUrl =
-            "mailto:" +
-            RECIPIENT +
-            "?subject=" +
-            encodeURIComponent("[Contact] " + subject) +
-            "&body=" +
-            encodeURIComponent(body);
-
-        originalButtonHTML =
-            submitButton ? submitButton.innerHTML : "";
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.innerHTML = "Opening...";
-        }
-
-        /*
-         * No HTTP request is made here.
-         * The browser hands the composed email to the user's
-         * configured email application.
-         */
-        window.location.href = mailtoUrl;
-
-        window.setTimeout(function () {
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonHTML;
-            }
-        }, 2000);
-    });
 }());
