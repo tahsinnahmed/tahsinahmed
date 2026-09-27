@@ -1,30 +1,44 @@
+/* =========================================================
+   Contact Form — sends messages via Cloudflare Pages Function
+   ---------------------------------------------------------
+   Flow:
+     Browser (this file)
+         ↓ POST /api/contact
+     Cloudflare Pages Function (functions/api/contact.js)
+         ↓ POST https://api.resend.com/emails
+     Resend API
+         ↓
+     contact@tahsinahmed.com → Cloudflare Email Routing → Gmail
+   ---------------------------------------------------------
+   Requires the RESEND_API_KEY environment variable to be set
+   in your Cloudflare Pages project settings.
+   ========================================================= */
 (function () {
     'use strict';
 
     /* ==== CONFIG ========================================== */
-    var FORM_ENDPOINT = 'https://formsubmit.co/ajax/tahsin.ahmed@g.bracu.ac.bd';
+    var FORM_ENDPOINT = '/api/contact';
+    var FALLBACK_EMAIL = 'contact@tahsinahmed.com';
     /* ====================================================== */
 
     /* ==== REGEX ===========================================
-       RFC 5322-ish practical pattern.
+       Practical RFC 5322-ish pattern.
        Rules enforced:
          • local part: letters, digits, . _ % + - (no leading/trailing dot, no double dots)
          • exactly one @
          • domain: labels separated by dots, each starting/ending with alphanumeric/hyphen
          • TLD: 2–24 letters
          • total length ≤ 254, local part ≤ 64
-       Rejects things like: "a@b", "a@b.c", "a..b@x.com", "a@-x.com", "a@x-.com"
+       Rejects: "a@b", "a@b.c", "a..b@x.com", "a@-x.com", "a@x-.com"
     ====================================================== */
     var EMAIL_REGEX = /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9](?:[A-Za-z0-9._%+-]*[A-Za-z0-9])?@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,24}$/;
 
-    /* Extra explicit guards the regex above already handles,
-       but kept for clarity & defence-in-depth. */
     function isValidEmail(value) {
         if (!value) return false;
         var v = value.trim();
         if (v.length > 254) return false;
-        if (v.indexOf('..') !== -1) return false;          // no consecutive dots
-        if (/^[.]|[.]@|@[.]|[.]$/.test(v)) return false;    // no leading/trailing dot in local part
+        if (v.indexOf('..') !== -1) return false;
+        if (/^[.]|[.]@|@[.]|[.]$/.test(v)) return false;
         return EMAIL_REGEX.test(v);
     }
 
@@ -38,7 +52,6 @@
         if (!input) return;
         var group = input.closest('.form-group') || input.parentNode;
 
-        // Remove existing error state
         group.classList.remove('has-error');
         var old = group.querySelector('.field-error');
         if (old) old.remove();
@@ -105,14 +118,9 @@
                 return;
             }
 
-            /* ---- 3. Build payload ---- */
+            /* ---- 3. Build FormData payload ---- */
             var formData = new FormData(form);
-            var payload  = {};
-            formData.forEach(function (value, key) {
-                if (key === '_honey' && !value) return;
-                payload[key] = value;
-            });
-            payload.email = rawEmail; // ensure trimmed value is sent
+            formData.set('email', rawEmail); // send trimmed value
 
             /* ---- 4. Lock button ---- */
             var originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
@@ -121,25 +129,25 @@
                 submitBtn.innerHTML = 'Sending&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
             }
 
-            /* ---- 5. Send ---- */
+            /* ---- 5. Send to Cloudflare Function ---- */
             fetch(FORM_ENDPOINT, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(payload)
+                body: formData
+                // NOTE: do NOT set Content-Type — browser sets multipart/form-data
             })
             .then(function (response) {
-                if (!response.ok) throw new Error('HTTP ' + response.status);
-                return response.json();
+                return response.json()
+                    .catch(function () { return { success: false, error: 'Invalid server response' }; })
+                    .then(function (data) {
+                        if (!response.ok) {
+                            throw new Error(data.error || ('HTTP ' + response.status));
+                        }
+                        return data;
+                    });
             })
             .then(function (data) {
-                // FormSubmit always returns HTTP 200; the real result is in data.success
-                var ok = data && (data.success === true || data.success === 'true');
-                if (!ok) {
-                    var serverMsg = (data && data.message) ? data.message : 'Unknown error';
-                    throw new Error(serverMsg);
+                if (!data || !data.success) {
+                    throw new Error((data && data.error) ? data.error : 'Unknown error');
                 }
 
                 /* ---- SUCCESS ---- */
@@ -163,16 +171,15 @@
                 var raw = (err && err.message) ? err.message : 'Unknown error.';
                 var friendly = raw;
 
-                if (/could not authenticate/i.test(raw)) {
-                    friendly = 'The contact form is temporarily unable to deliver messages ' +
-                               '(SMTP authentication failed at the mail provider). ' +
-                               'Please email me directly at tahsin.ahmed@g.bracu.ac.bd.';
-                } else if (/activation|verify|confirm/i.test(raw)) {
-                    friendly = 'This email address has not been verified with the form service yet. ' +
-                               'Please email me directly at tahsin.ahmed@g.bracu.ac.bd.';
+                if (/RESEND_API_KEY|not configured/i.test(raw)) {
+                    friendly = 'The contact form is not configured yet. ' +
+                               'Please email me directly at ' + FALLBACK_EMAIL + '.';
+                } else if (/Failed to send|Resend|Unauthorized|401|403/i.test(raw)) {
+                    friendly = 'The message service is temporarily unable to send emails. ' +
+                               'Please try again later, or email me directly at ' + FALLBACK_EMAIL + '.';
                 } else if (/HTTP 4|HTTP 5/.test(raw)) {
                     friendly = 'The message service rejected the request. ' +
-                               'Please try again later, or email me directly at tahsin.ahmed@g.bracu.ac.bd.';
+                               'Please try again later, or email me directly at ' + FALLBACK_EMAIL + '.';
                 } else if (/Failed to fetch|NetworkError|Load failed/i.test(raw)) {
                     friendly = 'Network error. Please check your internet connection and try again.';
                 }
