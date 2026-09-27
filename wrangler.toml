@@ -1,14 +1,8 @@
 name = "tahsinahmed"
-main = "email/email.js"
-compatibility_date = "2026-09-27"
+compatibility_date = "2026-09-28"
 
 [assets]
 directory = "."
-binding = "ASSETS"
-
-[[send_email]]
-name = "EMAIL"
-allowed_sender_addresses = ["contact@tahsinahmed.com"]
 
 [observability]
 enabled = true
