@@ -1,0 +1,10 @@
+.git
+.git/**
+.wrangler
+.wrangler/**
+email
+email/**
+wrangler.toml
+.assetsignore
+node_modules
+node_modules/**
