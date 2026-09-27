@@ -1,181 +1,88 @@
 /*
 =========================================================
-Contact Form
+Contact Form — Pure Browser JavaScript
 ---------------------------------------------------------
-Browser
-    ↓
-POST /api/contact
-    ↓
-Cloudflare Worker (email/email.js)
-    ↓
-Resend API
-    ↓
-contact@tahsinahmed.com
-    ↓
-Cloudflare Email Routing
-    ↓
-Your Gmail / destination mailbox
+No backend.
+No Cloudflare Worker API.
+No Resend API.
+No API key.
+
+The browser opens the visitor's default email application
+using a mailto: link addressed to contact@tahsinahmed.com.
 =========================================================
 */
 
 (function () {
-
     "use strict";
 
+    var RECIPIENT = "contact@tahsinahmed.com";
 
-    // =====================================================
-    // CONFIG
-    // =====================================================
+    var form = document.getElementById("contactForm");
+    var submitBtn = document.getElementById("submit");
+    var emailEl = document.getElementById("email");
+    var fileInput = document.getElementById("file");
+    var fileChosen = document.getElementById("file-chosen");
 
-    var FORM_ENDPOINT = "/api/contact";
-
-    var FALLBACK_EMAIL =
-        "contact@tahsinahmed.com";
-
-
-    // =====================================================
-    // EMAIL VALIDATION
-    // =====================================================
-
-    var EMAIL_REGEX =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-    function isValidEmail(value) {
-
-        if (!value) {
-            return false;
-        }
-
-
-        var v =
-            value.trim();
-
-
-        if (
-            v.length < 3 ||
-            v.length > 254
-        ) {
-            return false;
-        }
-
-
-        if (
-            v.indexOf("..") !== -1
-        ) {
-            return false;
-        }
-
-
-        return EMAIL_REGEX.test(v);
-
+    if (!form) {
+        return;
     }
 
+    function isValidEmail(value) {
+        var email = String(value || "").trim();
 
-    // =====================================================
-    // ELEMENTS
-    // =====================================================
-
-    var form =
-        document.getElementById(
-            "contactForm"
+        return (
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+            email.length <= 254 &&
+            email.indexOf("..") === -1
         );
+    }
 
-
-    var submitBtn =
-        document.getElementById(
-            "submit"
-        );
-
-
-    var emailEl =
-        document.getElementById(
-            "email"
-        );
-
-
-    // =====================================================
-    // INLINE ERROR
-    // =====================================================
-
-    function setFieldError(
-        input,
-        message
-    ) {
-
+    function setFieldError(input, message) {
         if (!input) {
             return;
         }
 
-
         var group =
-            input.closest(
-                ".form-group"
-            ) ||
+            input.closest(".form-group") ||
             input.parentNode;
 
+        if (!group) {
+            return;
+        }
 
-        group.classList.remove(
-            "has-error"
-        );
-
+        group.classList.remove("has-error");
 
         var old =
-            group.querySelector(
-                ".field-error"
-            );
-
+            group.querySelector(".field-error");
 
         if (old) {
             old.remove();
         }
 
+        input.setCustomValidity("");
 
         if (!message) {
-
-            input.setCustomValidity(
-                ""
-            );
-
             return;
-
         }
 
+        group.classList.add("has-error");
 
-        group.classList.add(
-            "has-error"
-        );
+        input.setCustomValidity(message);
 
+        var error =
+            document.createElement("small");
 
-        input.setCustomValidity(
-            message
-        );
+        error.className = "field-error";
+        error.textContent = message;
 
-
-        var err =
-            document.createElement(
-                "small"
-            );
-
-
-        err.className =
-            "field-error";
-
-
-        err.textContent =
-            message;
-
-
-        group.appendChild(
-            err
-        );
-
+        group.appendChild(error);
     }
 
-
-    // =====================================================
-    // LIVE EMAIL VALIDATION
-    // =====================================================
+    /*
+    =====================================================
+    LIVE EMAIL VALIDATION
+    =====================================================
+    */
 
     if (emailEl) {
 
@@ -186,39 +93,20 @@ Your Gmail / destination mailbox
                 var value =
                     emailEl.value.trim();
 
-
-                if (!value) {
-
+                if (
+                    !value ||
+                    isValidEmail(value)
+                ) {
                     setFieldError(
                         emailEl,
                         ""
                     );
-
-                    return;
-
-                }
-
-
-                if (
-                    !isValidEmail(
-                        value
-                    )
-                ) {
-
+                } else {
                     setFieldError(
                         emailEl,
                         "Please enter a valid email address."
                     );
-
-                } else {
-
-                    setFieldError(
-                        emailEl,
-                        ""
-                    );
-
                 }
-
             }
         );
 
@@ -230,489 +118,30 @@ Your Gmail / destination mailbox
                 var value =
                     emailEl.value.trim();
 
-
                 if (
                     value &&
-                    !isValidEmail(
-                        value
-                    )
+                    !isValidEmail(value)
                 ) {
-
                     setFieldError(
                         emailEl,
                         "Please enter a valid email address."
                     );
-
                 } else {
-
                     setFieldError(
                         emailEl,
                         ""
                     );
-
                 }
-
             }
         );
-
     }
 
 
-    // =====================================================
-    // FORM SUBMISSION
-    // =====================================================
-
-    if (form) {
-
-        form.addEventListener(
-            "submit",
-            function (event) {
-
-                event.preventDefault();
-
-
-                // -------------------------------------------------
-                // 1. Browser validation
-                // -------------------------------------------------
-
-                if (
-                    !form.checkValidity()
-                ) {
-
-                    form.reportValidity();
-
-                    return;
-
-                }
-
-
-                // -------------------------------------------------
-                // 2. Explicit email validation
-                // -------------------------------------------------
-
-                var rawEmail =
-                    emailEl
-                        ? emailEl.value.trim()
-                        : "";
-
-
-                if (
-                    !isValidEmail(
-                        rawEmail
-                    )
-                ) {
-
-                    setFieldError(
-                        emailEl,
-                        "Please enter a valid email address."
-                    );
-
-
-                    if (emailEl) {
-                        emailEl.focus();
-                    }
-
-
-                    if (
-                        typeof Swal !==
-                        "undefined"
-                    ) {
-
-                        Swal.fire({
-
-                            title:
-                                "Invalid email",
-
-                            text:
-                                "Please enter a valid email address.",
-
-                            icon:
-                                "warning",
-
-                            confirmButtonColor:
-                                "#00006d"
-
-                        });
-
-                    }
-
-
-                    return;
-
-                }
-
-
-                // -------------------------------------------------
-                // 3. Build FormData
-                // -------------------------------------------------
-
-                var formData =
-                    new FormData(
-                        form
-                    );
-
-
-                formData.set(
-                    "email",
-                    rawEmail
-                );
-
-
-                // -------------------------------------------------
-                // 4. Lock button
-                // -------------------------------------------------
-
-                var originalBtnHTML =
-                    submitBtn
-                        ? submitBtn.innerHTML
-                        : "";
-
-
-                if (submitBtn) {
-
-                    submitBtn.disabled =
-                        true;
-
-
-                    submitBtn.innerHTML =
-                        'Sending&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
-
-                }
-
-
-                // -------------------------------------------------
-                // 5. Send to existing Worker API
-                // -------------------------------------------------
-
-                fetch(
-                    FORM_ENDPOINT,
-                    {
-                        method:
-                            "POST",
-
-                        body:
-                            formData
-                    }
-                )
-
-
-                // -------------------------------------------------
-                // 6. Parse response
-                // -------------------------------------------------
-
-                .then(
-                    function (response) {
-
-                        return response.text()
-                            .then(
-                                function (text) {
-
-                                    var data;
-
-
-                                    try {
-
-                                        data =
-                                            JSON.parse(
-                                                text
-                                            );
-
-                                    } catch (
-                                        parseErr
-                                    ) {
-
-                                        var snippet =
-                                            (
-                                                text ||
-                                                ""
-                                            )
-                                            .slice(
-                                                0,
-                                                300
-                                            )
-                                            .replace(
-                                                /\s+/g,
-                                                " "
-                                            );
-
-
-                                        throw new Error(
-                                            "Server returned non-JSON (HTTP " +
-                                            response.status +
-                                            "). Body: \"" +
-                                            snippet +
-                                            "\""
-                                        );
-
-                                    }
-
-
-                                    if (
-                                        !response.ok
-                                    ) {
-
-                                        throw new Error(
-                                            (
-                                                data &&
-                                                data.error
-                                            ) ||
-                                            (
-                                                "HTTP " +
-                                                response.status
-                                            )
-                                        );
-
-                                    }
-
-
-                                    return data;
-
-                                }
-                            );
-
-                    }
-                )
-
-
-                // -------------------------------------------------
-                // 7. Success
-                // -------------------------------------------------
-
-                .then(
-                    function (data) {
-
-                        if (
-                            !data ||
-                            !data.success
-                        ) {
-
-                            throw new Error(
-                                (
-                                    data &&
-                                    data.error
-                                ) ||
-                                "Unknown error"
-                            );
-
-                        }
-
-
-                        form.reset();
-
-
-                        setFieldError(
-                            emailEl,
-                            ""
-                        );
-
-
-                        var fileChosen =
-                            document.getElementById(
-                                "file-chosen"
-                            );
-
-
-                        if (
-                            fileChosen
-                        ) {
-
-                            fileChosen.textContent =
-                                "No file chosen";
-
-                        }
-
-
-                        if (
-                            typeof Swal !==
-                            "undefined"
-                        ) {
-
-                            Swal.fire({
-
-                                title:
-                                    "Message sent!",
-
-                                text:
-                                    "Thank you for reaching out. I am currently tied up but will get back to you as soon as possible. I appreciate your patience.",
-
-                                icon:
-                                    "success",
-
-                                confirmButtonColor:
-                                    "#00006d"
-
-                            });
-
-                        } else {
-
-                            alert(
-                                "Thank you! Your message has been sent."
-                            );
-
-                        }
-
-                    }
-                )
-
-
-                // -------------------------------------------------
-                // 8. Error handling
-                // -------------------------------------------------
-
-                .catch(
-                    function (err) {
-
-                        console.error(
-                            "Contact form error:",
-                            err
-                        );
-
-
-                        var raw =
-                            (
-                                err &&
-                                err.message
-                            )
-                            ? err.message
-                            : "Unknown error.";
-
-
-                        var friendly =
-                            raw;
-
-
-                        if (
-                            /RESEND_API_KEY|not configured/i
-                                .test(raw)
-                        ) {
-
-                            friendly =
-                                "The contact form is not configured yet. " +
-                                "Please email me directly at " +
-                                FALLBACK_EMAIL +
-                                ".";
-
-                        } else if (
-                            /Failed to send|Resend|Unauthorized|401|403/i
-                                .test(raw)
-                        ) {
-
-                            friendly =
-                                "The message service is temporarily unable to send emails. " +
-                                "Please try again later, or email me directly at " +
-                                FALLBACK_EMAIL +
-                                ".";
-
-                        } else if (
-                            /HTTP 4|HTTP 5/.test(
-                                raw
-                            )
-                        ) {
-
-                            friendly =
-                                "The message service rejected the request. " +
-                                "Please try again later, or email me directly at " +
-                                FALLBACK_EMAIL +
-                                ".";
-
-                        } else if (
-                            /Failed to fetch|NetworkError|Load failed/i
-                                .test(raw)
-                        ) {
-
-                            friendly =
-                                "Network error. Please check your internet connection and try again.";
-
-                        } else if (
-                            /non-JSON/.test(
-                                raw
-                            )
-                        ) {
-
-                            friendly =
-                                "The contact endpoint is not available yet. " +
-                                "Please email me directly at " +
-                                FALLBACK_EMAIL +
-                                ".";
-
-                        }
-
-
-                        if (
-                            typeof Swal !==
-                            "undefined"
-                        ) {
-
-                            Swal.fire({
-
-                                title:
-                                    "Message not sent",
-
-                                text:
-                                    friendly,
-
-                                icon:
-                                    "error",
-
-                                confirmButtonColor:
-                                    "#00006d"
-
-                            });
-
-                        } else {
-
-                            alert(
-                                friendly
-                            );
-
-                        }
-
-                    }
-                )
-
-
-                // -------------------------------------------------
-                // 9. Restore button
-                // -------------------------------------------------
-
-                .finally(
-                    function () {
-
-                        if (submitBtn) {
-
-                            submitBtn.disabled =
-                                false;
-
-
-                            submitBtn.innerHTML =
-                                originalBtnHTML;
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    // =====================================================
-    // FILE NAME PREVIEW
-    // =====================================================
-
-    var fileInput =
-        document.getElementById(
-            "file"
-        );
-
-
-    var fileChosen =
-        document.getElementById(
-            "file-chosen"
-        );
-
+    /*
+    =====================================================
+    FILE NAME PREVIEW
+    =====================================================
+    */
 
     if (
         fileInput &&
@@ -721,20 +150,275 @@ Your Gmail / destination mailbox
 
         fileInput.addEventListener(
             "change",
-            function (event) {
+            function () {
 
                 var file =
-                    event.target.files[0];
-
+                    fileInput.files &&
+                    fileInput.files[0];
 
                 fileChosen.textContent =
                     file
                         ? file.name
                         : "No file chosen";
-
             }
         );
-
     }
+
+
+    /*
+    =====================================================
+    FORM SUBMISSION
+    =====================================================
+    */
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            /*
+            -------------------------------------------------
+            Browser validation
+            -------------------------------------------------
+            */
+
+            if (!form.checkValidity()) {
+
+                form.reportValidity();
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Read form fields
+            -------------------------------------------------
+            */
+
+            var name =
+                String(
+                    document.getElementById("name")?.value ||
+                    ""
+                ).trim();
+
+
+            var email =
+                String(
+                    emailEl?.value ||
+                    ""
+                ).trim();
+
+
+            var subject =
+                String(
+                    document.getElementById("subject")?.value ||
+                    ""
+                ).trim();
+
+
+            var message =
+                String(
+                    document.getElementById("message")?.value ||
+                    ""
+                ).trim();
+
+
+            /*
+            -------------------------------------------------
+            Attachment filename
+            -------------------------------------------------
+            */
+
+            var attachment =
+                (
+                    fileInput &&
+                    fileInput.files &&
+                    fileInput.files[0]
+                )
+                    ? fileInput.files[0].name
+                    : "No attachment";
+
+
+            /*
+            -------------------------------------------------
+            Explicit email validation
+            -------------------------------------------------
+            */
+
+            if (!isValidEmail(email)) {
+
+                setFieldError(
+                    emailEl,
+                    "Please enter a valid email address."
+                );
+
+                if (emailEl) {
+                    emailEl.focus();
+                }
+
+                return;
+            }
+
+
+            /*
+            -------------------------------------------------
+            Build email body
+            -------------------------------------------------
+            */
+
+            var body = [
+                "New Contact Form Message",
+                "",
+                "Name: " + name,
+                "Email: " + email,
+                "Subject: " + subject,
+                "",
+                "Message:",
+                message,
+                "",
+                "Attachment selected: " + attachment,
+                "",
+                "Sent from https://www.tahsinahmed.com/"
+            ].join("\n");
+
+
+            /*
+            -------------------------------------------------
+            Build mailto URL
+            -------------------------------------------------
+            */
+
+            var mailto =
+                "mailto:" +
+                encodeURIComponent(RECIPIENT) +
+
+                "?subject=" +
+                encodeURIComponent(
+                    "[Contact] " + subject
+                ) +
+
+                "&body=" +
+                encodeURIComponent(body);
+
+
+            /*
+            -------------------------------------------------
+            Lock button
+            -------------------------------------------------
+            */
+
+            var originalBtnHTML =
+                submitBtn
+                    ? submitBtn.innerHTML
+                    : "";
+
+
+            if (submitBtn) {
+
+                submitBtn.disabled = true;
+
+                submitBtn.innerHTML =
+                    'Opening&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i>';
+            }
+
+
+            /*
+            -------------------------------------------------
+            Open visitor's email application
+            -------------------------------------------------
+            */
+
+            window.location.href = mailto;
+
+
+            /*
+            -------------------------------------------------
+            Fallback
+            -------------------------------------------------
+            */
+
+            window.setTimeout(
+                function () {
+
+                    if (submitBtn) {
+
+                        submitBtn.disabled = false;
+
+                        submitBtn.innerHTML =
+                            originalBtnHTML;
+                    }
+
+
+                    var previous =
+                        document.querySelector(
+                            ".contact-mail-fallback"
+                        );
+
+
+                    if (previous) {
+                        previous.remove();
+                    }
+
+
+                    var fallback =
+                        document.createElement("p");
+
+
+                    fallback.className =
+                        "contact-mail-fallback";
+
+
+                    fallback.style.marginTop =
+                        "15px";
+
+
+                    fallback.style.color =
+                        "#00006d";
+
+
+                    fallback.style.fontWeight =
+                        "600";
+
+
+                    var link =
+                        document.createElement("a");
+
+
+                    link.href =
+                        mailto;
+
+
+                    link.textContent =
+                        "click here to open it";
+
+
+                    fallback.appendChild(
+                        document.createTextNode(
+                            "If your email app did not open, "
+                        )
+                    );
+
+
+                    fallback.appendChild(link);
+
+
+                    fallback.appendChild(
+                        document.createTextNode(".")
+                    );
+
+
+                    form.parentNode.insertBefore(
+                        fallback,
+                        form.nextSibling
+                    );
+
+                },
+                1200
+            );
+        }
+    );
 
 })();
