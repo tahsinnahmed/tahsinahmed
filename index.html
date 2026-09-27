@@ -1,97 +1,99 @@
-<html>
-
-<head>    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <meta name="Description"
-        content="Tahsin Ahmed" />
-    <title>Home | Tahsin Ahmed</title>
-    <link rel="icon" type="image/png" href="./assets/img/icon.png">
-    <link rel="apple-touch-icon" href="./assets/img/favicon.png">
-    <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
-    <meta name="theme-color" content="#FFE1C4">
-    <script src="./assets/js/app.js"></script>
+    <title>Tahsin Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://www.tahsinahmed.com/" />
+    <meta name="description" content="Hi, I am Tahsin Ahmed who is committed to exploring a broad spectrum of computational technologies. This is my personal brand platform that brings together my professional journey, research, projects, achievements, ongoing work, and so on." />
+    <link rel="icon" type="image/png" href="./assets/img/favicon_v1.png">
+    <link rel="apple-touch-icon" href="./assets/img/favicon_v1.png">
+    <meta name="apple-mobile-web-app-status-bar" content="rgb(0, 0, 109)">
+    <meta name="theme-color" content="rgb(0, 0, 109)">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0JME0W5MW7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0JME0W5MW7');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1825421783042338" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-link">
+                <img src="./assets/img/favicon_v1.png" class="logo-img" alt="logo">
+                <span class="logo-text"><img src="./assets/img/signature_of_tahsin (1).png" class="sign" alt="Tahsin Ahmed"/></span>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./components/about.html">About</a></li>
+                    <li><a href="./components/publications.html">Publication</a></li>
+                    <li><a href="./components/project.html">Project</a></li>
+                    <li><a href="./components/certification.html">Certification</a></li>
+                    <li><a href="./components/awards.html">Awards</a></li>
+                    <li><a href="./components/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
 
-<body id="index-body" style="overflow: hidden;">
-    <div>
-        <nav class="nav-desk">
-            <center>
-                <div class="nav-logo">
-                    <img id="logo" src="./assets/img/Untitled design.gif">
-                </div>
-                <div class="nav-items">
-                    <ul>
-                        <li><span><a href="./index.html">Home</a></span></li>
-                        <li><span><a href="./include/project.html">Project</a></span></li>
-                        <li><span><a href="./include/certification.html">Certification</a></span></li>
-                        <li><span><a href="./include/award.html">Award</a></span></li>
-                        <li><span><a href="./include/eca.html">ECA</a></span></li>
-                        <li><span><a href="./include/contact.html">Contact</a></span></li>
-                    </ul>
-                </div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="drawer-nav">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./components/about.html">About</a></li>
+            <li><a href="./components/publications.html">Publication</a></li>
+            <li><a href="./components/project.html">Project</a></li>
+            <li><a href="./components/certification.html">Certification</a></li>
+            <li><a href="./components/awards.html">Awards</a></li>
+            <li><a href="./components/contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
 
-            </center>
-        </nav>
-        <div class="animated fadeIn row" style="width:100vw;animation-duration: 1s;">
-            <div class="col-md-6" id="index-hero">
-                <h1 class="hero-tag"><span class="typer" id="main" data-words="Hi, I'm Tahsin" data-delay="100"
-                        data-deleteDelay="1000" data-loop="1" style="color:rgb(0, 0, 109)!important;"></span>
-                    &nbsp;</h1>
-                <p class="hero-des">
-                    I am the founder of Cyberengine and a computer enthusiast. 
-                    I love to do research and design new algorithms to solve problems. 
-                    Also, Kacchi-biryani is my cup of tea because it fuels me to think. 
-                    However, I am a voracious reader, a representative of people, and a non-stop learner. 
-                </p>
-                <script async src="https://unpkg.com/typer-dot-js@0.1.0/typer.js"></script>
-                <a target="_blank" href="./cv/Tahsin Ahmed (Curriculum Vitae).pdf" download>
-                    <button class="animated bounce delay-4s learn-btn"> Download CV </button>
+    <main>
+        <div class="row hero-row">
+            <div class="col-md-6">
+                <h1 class="hero-title"><span class="typer" id="typer" data-words="Hi, I'm Tahsin" data-loop="1" data-delay="100"></span></h1>
+                <p class="hero-desc">This is my <b>personal brand platform</b> that brings together my professional journey, research, projects, achievements, ongoing work, and so on. It serves as a central hub to explore my experiences, contributions, and latest endeavors. Please, feel free to browse and learn more about my work and aspirations.</p>
+                <a href="./assets/resume/Resume of Tahsin Ahmed.pdf" download>
+                    <button class="download-btn animated bounce delay-4s"><i class="fa fa-file-text"></i> Download Resume</button>
                 </a>
-                <div class="social-icons">
-                    <a target="_blank" href="https://www.facebook.com/hack4tahsin"><i class="fab fa-facebook"></i></a> &nbsp; &nbsp;
-                    <a target="_blank" href="https://www.instagram.com/hack4tahsin"><i class="fab fa-instagram"></i></a> &nbsp; &nbsp;
-                    <a target="_blank" href="https://www.twitter.com/hack4tahsin"><i class="fab fa-twitter"></i></a> &nbsp; &nbsp;
-                    <a target="_blank" href="https://www.linkedin.com/in/hack4tahsin"><i class="fab fa-linkedin"></i></a> &nbsp; &nbsp;
-                    <a target="_blank" href="https://www.github.com/hack4tahsin"><i class="fab fa-github"></i></a> &nbsp; &nbsp;
+                <div class="social-links">
+                    <a href="https://www.facebook.com/tahsinnahmed/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/in/tahsinnahmed" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://scholar.google.com/citations?user=N4_39jQAAAAJ&hl" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                    <a href="https://orcid.org/0009-0006-9820-1071" target="_blank" rel="noopener" aria-label="ORCID"><i class="fab fa-orcid"></i></a>
                 </div>
             </div>
-
-            <div class="col-md-6" id="hero-right">
-                <img id="home-hero-img" src="./assets/img/Untitled design.gif">
-            </div>
-
-        </div>
-    </div>
-    <div class="menu-wrap">
-        <input type="checkbox" class="toggler">
-        <div class="hamburger">
-            <div></div>
-        </div>
-        <div class="menu">
-            <div>
-                <div>
-                    <ul>
-                        <li><span><a href="./index.html">Home</a></span></li>
-                        <li><span><a href="./include/project.html">Project</a></span></li>
-                        <li><span><a href="./include/certification.html">Certification</a></span></li>
-                        <li><span><a href="./include/award.html">Award</a></span></li>
-                        <li><span><a href="./include/eca.html">ECA</a></span></li>
-                        <li><span><a href="./include/contact.html">Contact</a></span></li>
-                    </ul>
-                </div>
+            <div class="col-md-6">
+                <img src="./assets/img/Tahsin (1).png" class="hero-img" alt="Tahsin">
             </div>
         </div>
+    </main>
+
+    <div class="footer">
+        <a href="./components/policy.html">Privacy Policy</a> | <a href="./components/terms.html">Terms &amp; Conditions</a> | © <span id="year"></span> Tahsin Ahmed. All Rights Reserved.
     </div>
-    <div class="legal">
-        <a href="./include/privacy&policy.html">Privacy & Policy</a>
-    </div>
+
+    <script src="https://unpkg.com/typer-dot-js@0.1.0/typer.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/index.js"></script>
 </body>
-
 </html>
