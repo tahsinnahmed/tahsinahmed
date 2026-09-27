@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <title>Contact | Tahsin Ahmed</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -13,206 +12,103 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/contact.css">
 </head>
-
 <body>
 
-    <header class="site-header">
-        <div class="header-container">
-            <div class="logo-link">
-                <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
-                <span class="logo-text">
-                    <img src="../assets/img/signature_of_tahsin (1).png" class="sign" alt="Tahsin Ahmed">
-                </span>
-            </div>
-
-            <nav class="desktop-nav">
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="./about.html">About</a></li>
-                    <li><a href="./publications.html">Publication</a></li>
-                    <li><a href="./project.html">Project</a></li>
-                    <li><a href="./certification.html">Certification</a></li>
-                    <li><a href="./awards.html">Awards</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
-                </ul>
-            </nav>
-
-            <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
+<!-- HEADER -->
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo-link">
+            <img src="../assets/img/favicon_v1.png" class="logo-img" alt="logo">
+            <span class="logo-text">
+                <img src="../assets/img/signature_of_tahsin (1).png" class="sign" alt="Tahsin Ahmed">
+            </span>
         </div>
-    </header>
-
-    <div class="mobile-drawer" id="mobileDrawer">
-        <div class="drawer-header">
-            <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button>
-        </div>
-
-        <ul class="drawer-nav">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="./about.html">About</a></li>
-            <li><a href="./publications.html">Publication</a></li>
-            <li><a href="./project.html">Project</a></li>
-            <li><a href="./certification.html">Certification</a></li>
-            <li><a href="./awards.html">Awards</a></li>
-            <li><a href="./contact.html">Contact</a></li>
-        </ul>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./publications.html">Publication</a></li>
+                <li><a href="./project.html">Project</a></li>
+                <li><a href="./certification.html">Certification</a></li>
+                <li><a href="./awards.html">Awards</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-btn" id="mobileToggleBtn" aria-label="Open menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </div>
+</header>
 
-    <div class="drawer-overlay" id="drawerOverlay"></div>
+<!-- MOBILE MENU -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+        <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">&times;</button>
+    </div>
+    <ul class="drawer-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./publications.html">Publication</a></li>
+        <li><a href="./project.html">Project</a></li>
+        <li><a href="./certification.html">Certification</a></li>
+        <li><a href="./awards.html">Awards</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+    </ul>
+</div>
+<div class="drawer-overlay" id="drawerOverlay"></div>
 
-    <div class="page-content">
-        <div class="animated fadeIn row" style="width:100%; animation-duration:1.5s;">
+<!-- CONTACT CONTENT -->
+<div class="page-content">
+    <div class="animated fadeIn row" style="width:100%; animation-duration:1.5s;">
 
-            <div class="col-md-6" id="left-hero">
-                <h1 class="hero-tag contact-hero fadeInLeft">
-                    Let's Get In Touch
-                </h1>
+        <!-- LEFT -->
+        <div class="col-md-6" id="left-hero">
+            <h1 class="hero-tag contact-hero fadeInLeft">Let's Get In Touch</h1>
+            <p class="hero-des contact-des">
+                Interested in discussing an idea, exploring a collaboration, or simply connecting?
+                I welcome conversations that inspire, challenge, and create value. Feel free to reach out.
+            </p>
 
-                <p class="hero-des contact-des">
-                    Interested in discussing an idea, exploring a collaboration,
-                    or simply connecting? I welcome conversations that inspire,
-                    challenge, and create value. Feel free to reach out.
-                </p>
-
-                <br>
-
-                <!-- Cloudflare Email Service contact form -->
-                <form class="input-container" id="contactForm">
-
-                    <div class="form-group">
-                        <label for="name">
-                            <b style="color:rgb(0,0,109);">Full Name</b>
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            class="form-control"
-                            placeholder="What is your name?"
-                            maxlength="200"
-                            required
-                        >
+            <!-- CONTACT INFO -->
+            <div class="contact-info mt-3">
+                <div class="d-flex align-items-start mb-2">
+                    <i class="fa fa-envelope mr-3" style="color:rgb(0,0,109); font-size:1.2rem; width:1.4rem; margin-top:0.2rem;"></i>
+                    <div>
+                        <div class="text-muted small text-uppercase" style="letter-spacing:0.05em;">Email</div>
+                        <a href="mailto:contact@tahsinahmed.com" class="text-dark font-weight-bold" style="text-decoration:none;">contact@tahsinahmed.com</a>
                     </div>
-
-                    <br>
-
-                    <div class="form-group">
-                        <label for="email">
-                            <b style="color:rgb(0,0,109);">Email Address</b>
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            class="form-control"
-                            style="text-transform:lowercase;"
-                            placeholder="What is your email?"
-                            maxlength="254"
-                            required
-                        >
+                </div>
+                <div class="d-flex align-items-start mb-2">
+                    <i class="fa fa-globe mr-3" style="color:rgb(0,0,109); font-size:1.2rem; width:1.4rem; margin-top:0.2rem;"></i>
+                    <div>
+                        <div class="text-muted small text-uppercase" style="letter-spacing:0.05em;">Website</div>
+                        <a href="https://www.tahsinahmed.com" target="_blank" rel="noopener noreferrer" class="text-dark font-weight-bold" style="text-decoration:none;">www.tahsinahmed.com</a>
                     </div>
-
-                    <br>
-
-                    <div class="form-group">
-                        <label for="subject">
-                            <b style="color:rgb(0,0,109);">Subject</b>
-                        </label>
-                        <input
-                            type="text"
-                            name="subject"
-                            id="subject"
-                            class="form-control"
-                            placeholder="Write subject of your message."
-                            maxlength="300"
-                            required
-                        >
+                </div>
+                <div class="d-flex align-items-start">
+                    <i class="fa fa-map-marker-alt mr-3" style="color:rgb(0,0,109); font-size:1.2rem; width:1.4rem; margin-top:0.2rem;"></i>
+                    <div>
+                        <div class="text-muted small text-uppercase" style="letter-spacing:0.05em;">Location</div>
+                        <span class="text-dark font-weight-bold">Dhaka, Bangladesh</span>
                     </div>
-
-                    <br>
-
-                    <div class="form-group">
-                        <label for="message">
-                            <b style="color:rgb(0,0,109);">Message</b>
-                        </label>
-                        <textarea
-                            rows="5"
-                            id="message"
-                            name="message"
-                            class="form-control"
-                            placeholder="What do you want to say?"
-                            maxlength="10000"
-                            required
-                        ></textarea>
-                    </div>
-
-                    <br>
-
-                    <div class="form-group">
-                        <label for="file" class="custom-file-upload">
-                            <i class="fa fa-cloud-upload-alt"></i>
-                            Attachment
-                        </label>
-
-                        <input
-                            type="file"
-                            name="attachment"
-                            id="file"
-                            class="file-input"
-                        >
-
-                        <span id="file-chosen">No file chosen</span>
-                    </div>
-
-                    <small class="upload-warning d-block mt-1">
-                        <i class="fa fa-exclamation-triangle"></i>
-                        <b>Warning:</b>
-                        A static browser-only form cannot automatically attach the selected file to a mailto email.
-                        If you select a file, its filename will be included in the email body and you can attach it manually in your email app.
-                    </small>
-
-                    <br>
-
-                    <button
-                        type="submit"
-                        id="submit"
-                        class="submit animated bounce delay-4s learn-btn"
-                        style="padding-left:3%; padding-right:3%; padding-top:1%; padding-bottom:1%;"
-                    >
-                        Send &nbsp;
-                        <i class="fa fa-paper-plane"></i>
-                    </button>
-
-                </form>
-
-                <br>
-            </div>
-
-            <div class="col-md-6" id="hero-right">
-                <div class="map-wrapper">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.437204246382!2d90.36592396229216!3d23.80629729455645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c72a7c0d0b0d%3A0x8c5c7f2c5f5c5f5c!2sMirpur-1%2C%20Dhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000"
-                        width="100%"
-                        height="100%"
-                        style="border:0; min-height:400px;"
-                        allowfullscreen
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Location map"
-                    ></iframe>
                 </div>
             </div>
-
+            <!-- END CONTACT INFO -->
         </div>
+
+        <!-- RIGHT / MAP -->
+        <div class="col-md-6" id="hero-right">
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14606.437204246382!2d90.36592396229216!3d23.80629729455645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c72a7c0d0b0d%3A0x8c5c7f2c5f5c5f5c!2sMirpur-1%2C%20Dhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000" width="100%" height="100%" style="border:0; min-height:400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <script src="../js/main.js"></script>
-    
-
-    <script src="../js/contact-direct.js?v=20260928"></script>
-
+<!-- JAVASCRIPT -->
+<script src="../js/main.js"></script>
 </body>
 </html>
