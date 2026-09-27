@@ -1,0 +1,125 @@
+/* ========== PUBLICATIONS PAGE ========== */
+.work-des h1 {
+    font-size: 25px;
+    color: rgb(0, 0, 109);
+    text-align: left;
+    margin-top: 1%;
+    font-weight: bold;
+    border-left: 5px solid #0d6efd;
+    padding-left: 0.5rem;
+}
+#left-hero img { height: 55px; width: 60px; }
+#left-hero h1 {
+    font-size: 45px;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+}
+.content-wrapper { margin-top: 2%; }
+.work-hero-img { height: 60%; width: 50%; }
+.todo-list {
+    margin-top: 2%;
+    font-size: 18px;
+    list-style: none;
+    padding-left: 0;
+}
+.todo-list li { margin-bottom: 10px; }
+.order { color: rgb(0, 0, 109); font-weight: bold; }
+.paper { color: black; }
+.paper a { text-decoration: none; }
+.paper a:hover { text-decoration: underline; }
+#my_skills { margin-left: 1%; }
+#my_skills h1 { padding-left: 1rem; border-left: 5px solid #0d6efd; }
+
+/* ========== LAYOUT ========== */
+.page-content {
+    margin-top: 130px;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 0 5% 3rem 5%;
+    max-width: 1850px;
+    height: 100%;
+}
+
+/* ========== FILTER ========== */
+.filter-row { margin: 1.5rem 0 2rem 0; display: flex; justify-content: flex-start; }
+.filter-bar {
+    background: #ffffff;
+    border-radius: 60px;
+    padding: 0.6rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.200);
+    border: 1px solid #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: auto;
+}
+.filter-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgb(0, 0, 109);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.filter-label i { font-size: 0.8rem; }
+.desktop-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.filter-btn {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+.filter-btn:hover { background: #eef2ff; color: rgb(0, 0, 109); }
+.filter-btn.active { background: rgb(0, 0, 109); color: white; }
+.mobile-filter { display: none; }
+.filter-select-dropdown {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    background: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    color: #4a5568;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+}
+.filter-select-dropdown:focus { outline: none; border-color: rgb(0, 0, 109); }
+
+/* ========== STATES ========== */
+.section-item.hidden-section { display: none; }
+.empty-message { text-align: center; padding: 3rem; color: #6c757d; font-size: 1.1rem; }
+.empty-message i { font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5; }
+
+/* ========== RESPONSIVE ========== */
+@media only screen and (max-width: 991px) {
+    #left-hero h1 { font-size: 30px; margin-top: 0; }
+    #left-hero img { height: 40px; width: 45px; display: none; }
+    .todo-list { font-size: 15px; margin-top: 5%; }
+    .work-hero-img { height: 100%; width: 100%; }
+    .work-des h1 { font-size: 25px; }
+    #my_skills { margin-left: 5%; }
+    .page-content { margin-top: 75px; padding: 0 1.5rem 2rem 1.5rem; }
+    .desktop-filter { display: none; }
+    .mobile-filter { display: block; }
+    .filter-bar { width: 100%; justify-content: space-between; }
+    .filter-row { width: 100%; }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .desktop-filter { display: none; }
+    .mobile-filter { display: block; }
+    .filter-bar { width: 100%; justify-content: space-between; }
+    .filter-row { width: 100%; }
+}
