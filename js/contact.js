@@ -1,49 +1,57 @@
 /*
-=========================================================
-Contact Form - Pure Browser JavaScript
----------------------------------------------------------
-No backend
-No API
-No Cloudflare Worker endpoint
-No Resend
-
-Uses mailto: to open the visitor's default email client.
-=========================================================
-*/
+ * Tahsin Ahmed - Static Contact Form
+ *
+ * Browser-only JavaScript.
+ * No Worker.
+ * No backend.
+ * No API.
+ * No Resend.
+ *
+ * Opens the visitor's email application with the
+ * contact message pre-filled.
+ */
 
 (function () {
     "use strict";
 
     var RECIPIENT = "contact@tahsinahmed.com";
 
-    var MAX_NAME_LENGTH = 200;
-    var MAX_EMAIL_LENGTH = 254;
-    var MAX_SUBJECT_LENGTH = 300;
-    var MAX_MESSAGE_LENGTH = 10000;
-
     var form = document.getElementById("contactForm");
-    var submitBtn = document.getElementById("submit");
-    var emailEl = document.getElementById("email");
+    var submitButton = document.getElementById("submit");
+    var emailInput = document.getElementById("email");
     var fileInput = document.getElementById("file");
     var fileChosen = document.getElementById("file-chosen");
+
 
     if (!form) {
         return;
     }
 
-    function trim(value) {
+
+    function clean(value) {
         return String(value || "").replace(/^\s+|\s+$/g, "");
     }
 
-    function getValue(id) {
+
+    function valueOf(id) {
         var element = document.getElementById(id);
-        return element ? trim(element.value) : "";
+
+        if (!element) {
+            return "";
+        }
+
+        return clean(element.value);
     }
 
-    function isValidEmail(value) {
-        var email = trim(value);
 
-        if (email.length < 3 || email.length > MAX_EMAIL_LENGTH) {
+    function validEmail(value) {
+        var email = clean(value);
+
+        if (email.length < 3) {
+            return false;
+        }
+
+        if (email.length > 254) {
             return false;
         }
 
@@ -54,204 +62,134 @@ Uses mailto: to open the visitor's default email client.
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    function getFormGroup(input) {
-        var node;
 
-        if (!input) {
-            return null;
-        }
-
-        node = input.parentNode;
-
-        while (node) {
-            if (
-                node.className &&
-                (" " + node.className + " ").indexOf(" form-group ") !== -1
-            ) {
-                return node;
-            }
-
-            node = node.parentNode;
-        }
-
-        return input.parentNode;
+    function showError(message) {
+        window.alert(message);
     }
 
-    function clearFieldError(input) {
-        var group;
-        var error;
 
-        if (!input) {
-            return;
-        }
-
-        group = getFormGroup(input);
-
-        input.setCustomValidity("");
-
-        if (!group) {
-            return;
-        }
-
-        group.className =
-            group.className.replace(/\s*has-error\b/g, "");
-
-        error = group.querySelector
-            ? group.querySelector(".field-error")
-            : null;
-
-        if (error && error.parentNode) {
-            error.parentNode.removeChild(error);
-        }
+    function buildMailto(subject, body) {
+        return (
+            "mailto:" +
+            RECIPIENT +
+            "?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body)
+        );
     }
 
-    function setFieldError(input, message) {
-        var group;
-        var error;
 
-        if (!input) {
-            return;
-        }
-
-        clearFieldError(input);
-
-        if (!message) {
-            return;
-        }
-
-        group = getFormGroup(input);
-
-        input.setCustomValidity(message);
-
-        if (!group) {
-            return;
-        }
-
-        if (
-            (" " + group.className + " ").indexOf(" has-error ") === -1
-        ) {
-            group.className += " has-error";
-        }
-
-        error = document.createElement("small");
-        error.className = "field-error";
-        error.textContent = message;
-
-        group.appendChild(error);
-    }
-
-    function showMessage(title, text, icon) {
-        if (
-            typeof window.Swal !== "undefined" &&
-            window.Swal &&
-            typeof window.Swal.fire === "function"
-        ) {
-            window.Swal.fire({
-                title: title,
-                text: text,
-                icon: icon || "info",
-                confirmButtonColor: "#00006d"
-            });
-        } else {
-            window.alert(title + "\n\n" + text);
-        }
-    }
-
-    function showFallback(mailtoUrl) {
-        var oldFallback =
-            document.getElementById("contact-mail-fallback");
-
-        var wrapper;
+    function showFallback(url) {
+        var old;
+        var container;
         var link;
 
-        if (oldFallback && oldFallback.parentNode) {
-            oldFallback.parentNode.removeChild(oldFallback);
+        old = document.getElementById("mailtoFallback");
+
+        if (old && old.parentNode) {
+            old.parentNode.removeChild(old);
         }
 
-        wrapper = document.createElement("p");
 
-        wrapper.id = "contact-mail-fallback";
-        wrapper.style.marginTop = "15px";
-        wrapper.style.fontWeight = "600";
+        container =
+            document.createElement("div");
 
-        link = document.createElement("a");
+        container.id =
+            "mailtoFallback";
 
-        link.href = mailtoUrl;
-        link.textContent = "click here to open your email app";
+        container.style.marginTop =
+            "15px";
 
-        wrapper.appendChild(
+        container.style.lineHeight =
+            "1.6";
+
+
+        link =
+            document.createElement("a");
+
+        link.href =
+            url;
+
+        link.textContent =
+            "open your email app manually";
+
+        link.style.color =
+            "#00006d";
+
+        link.style.fontWeight =
+            "600";
+
+
+        container.appendChild(
             document.createTextNode(
-                "If your email application did not open, "
+                "Your email application did not open. "
             )
         );
 
-        wrapper.appendChild(link);
+        container.appendChild(link);
 
-        wrapper.appendChild(
+        container.appendChild(
             document.createTextNode(".")
         );
 
+
         if (form.parentNode) {
             form.parentNode.insertBefore(
-                wrapper,
+                container,
                 form.nextSibling
             );
         }
     }
 
+
     /*
-    =====================================================
-    EMAIL VALIDATION
-    =====================================================
-    */
+     * Email validation
+     */
 
-    if (emailEl) {
+    if (emailInput) {
 
-        emailEl.addEventListener(
+        emailInput.addEventListener(
             "input",
             function () {
 
-                var value =
-                    trim(emailEl.value);
-
                 if (
-                    !value ||
-                    isValidEmail(value)
+                    emailInput.value &&
+                    !validEmail(emailInput.value)
                 ) {
 
-                    clearFieldError(emailEl);
+                    emailInput.setCustomValidity(
+                        "Please enter a valid email address."
+                    );
 
                 } else {
 
-                    setFieldError(
-                        emailEl,
-                        "Please enter a valid email address."
+                    emailInput.setCustomValidity(
+                        ""
                     );
                 }
             }
         );
 
 
-        emailEl.addEventListener(
+        emailInput.addEventListener(
             "blur",
             function () {
 
-                var value =
-                    trim(emailEl.value);
-
                 if (
-                    value &&
-                    !isValidEmail(value)
+                    emailInput.value &&
+                    !validEmail(emailInput.value)
                 ) {
 
-                    setFieldError(
-                        emailEl,
+                    emailInput.setCustomValidity(
                         "Please enter a valid email address."
                     );
 
                 } else {
 
-                    clearFieldError(emailEl);
+                    emailInput.setCustomValidity(
+                        ""
+                    );
                 }
             }
         );
@@ -259,10 +197,8 @@ Uses mailto: to open the visitor's default email client.
 
 
     /*
-    =====================================================
-    FILE NAME PREVIEW
-    =====================================================
-    */
+     * Attachment name preview
+     */
 
     if (
         fileInput &&
@@ -273,11 +209,17 @@ Uses mailto: to open the visitor's default email client.
             "change",
             function () {
 
-                var file =
+                var file = null;
+
+                if (
                     fileInput.files &&
-                    fileInput.files.length
-                        ? fileInput.files[0]
-                        : null;
+                    fileInput.files.length > 0
+                ) {
+
+                    file =
+                        fileInput.files[0];
+                }
+
 
                 fileChosen.textContent =
                     file
@@ -289,10 +231,8 @@ Uses mailto: to open the visitor's default email client.
 
 
     /*
-    =====================================================
-    FORM SUBMISSION
-    =====================================================
-    */
+     * Submit form
+     */
 
     form.addEventListener(
         "submit",
@@ -302,19 +242,18 @@ Uses mailto: to open the visitor's default email client.
             var email;
             var subject;
             var message;
-            var file;
+            var fileName;
             var body;
             var mailtoUrl;
-            var originalBtnHTML;
+            var originalButtonHTML;
+
 
             event.preventDefault();
 
 
             /*
-            -------------------------------------------------
-            Browser validation
-            -------------------------------------------------
-            */
+             * Native browser validation
+             */
 
             if (
                 typeof form.checkValidity === "function" &&
@@ -324,6 +263,7 @@ Uses mailto: to open the visitor's default email client.
                 if (
                     typeof form.reportValidity === "function"
                 ) {
+
                     form.reportValidity();
                 }
 
@@ -332,39 +272,30 @@ Uses mailto: to open the visitor's default email client.
 
 
             /*
-            -------------------------------------------------
-            Read fields
-            -------------------------------------------------
-            */
+             * Get values
+             */
 
             name =
-                getValue("name");
+                valueOf("name");
 
             email =
-                getValue("email");
+                valueOf("email");
 
             subject =
-                getValue("subject");
+                valueOf("subject");
 
             message =
-                getValue("message");
+                valueOf("message");
 
 
             /*
-            -------------------------------------------------
-            Validate name
-            -------------------------------------------------
-            */
+             * Validate name
+             */
 
-            if (
-                !name ||
-                name.length > MAX_NAME_LENGTH
-            ) {
+            if (!name) {
 
-                showMessage(
-                    "Invalid name",
-                    "Please enter your name.",
-                    "warning"
+                showError(
+                    "Please enter your name."
                 );
 
                 return;
@@ -372,31 +303,37 @@ Uses mailto: to open the visitor's default email client.
 
 
             /*
-            -------------------------------------------------
-            Validate email
-            -------------------------------------------------
-            */
+             * Validate email
+             */
 
-            if (
-                !isValidEmail(email)
-            ) {
+            if (!validEmail(email)) {
 
-                setFieldError(
-                    emailEl,
+                if (emailInput) {
+
+                    emailInput.setCustomValidity(
+                        "Please enter a valid email address."
+                    );
+
+                    emailInput.focus();
+                }
+
+
+                showError(
                     "Please enter a valid email address."
                 );
 
-                if (
-                    emailEl &&
-                    typeof emailEl.focus === "function"
-                ) {
-                    emailEl.focus();
-                }
+                return;
+            }
 
-                showMessage(
-                    "Invalid email",
-                    "Please enter a valid email address.",
-                    "warning"
+
+            /*
+             * Validate subject
+             */
+
+            if (!subject) {
+
+                showError(
+                    "Please enter a subject."
                 );
 
                 return;
@@ -404,150 +341,124 @@ Uses mailto: to open the visitor's default email client.
 
 
             /*
-            -------------------------------------------------
-            Validate subject
-            -------------------------------------------------
-            */
+             * Validate message
+             */
+
+            if (!message) {
+
+                showError(
+                    "Please enter your message."
+                );
+
+                return;
+            }
+
+
+            /*
+             * Attachment name
+             */
+
+            fileName =
+                "None";
 
             if (
-                !subject ||
-                subject.length > MAX_SUBJECT_LENGTH
-            ) {
-
-                showMessage(
-                    "Invalid subject",
-                    "Please enter a subject.",
-                    "warning"
-                );
-
-                return;
-            }
-
-
-            /*
-            -------------------------------------------------
-            Validate message
-            -------------------------------------------------
-            */
-
-            if (
-                !message ||
-                message.length > MAX_MESSAGE_LENGTH
-            ) {
-
-                showMessage(
-                    "Invalid message",
-                    "Please enter your message.",
-                    "warning"
-                );
-
-                return;
-            }
-
-
-            /*
-            -------------------------------------------------
-            Attachment
-            -------------------------------------------------
-            */
-
-            file =
                 fileInput &&
                 fileInput.files &&
-                fileInput.files.length
-                    ? fileInput.files[0]
-                    : null;
+                fileInput.files.length > 0
+            ) {
+
+                fileName =
+                    fileInput.files[0].name;
+            }
 
 
             /*
-            -------------------------------------------------
-            Build email
-            -------------------------------------------------
-            */
+             * Build email body
+             */
 
-            body = [
-                "New Contact Form Message",
-                "",
-                "Name: " + name,
-                "Email: " + email,
-                "Subject: " + subject,
-                "",
-                "Message:",
-                message,
-                "",
+            body =
+                "New Contact Form Message\n" +
+                "\n" +
+                "Name: " +
+                name +
+                "\n" +
+                "Email: " +
+                email +
+                "\n" +
+                "Subject: " +
+                subject +
+                "\n" +
+                "\n" +
+                "Message:\n" +
+                message +
+                "\n" +
+                "\n" +
                 "Attachment selected: " +
-                    (file ? file.name : "None"),
-                "",
-                "Website: https://www.tahsinahmed.com/"
-            ].join("\n");
+                fileName +
+                "\n" +
+                "\n" +
+                "Website: https://www.tahsinahmed.com/";
 
 
             /*
-            -------------------------------------------------
-            mailto URL
-            -------------------------------------------------
-            */
+             * Build mailto URL
+             */
 
             mailtoUrl =
-                "mailto:" +
-                RECIPIENT +
-                "?subject=" +
-                encodeURIComponent(
-                    "[Contact] " + subject
-                ) +
-                "&body=" +
-                encodeURIComponent(body);
+                buildMailto(
+                    "[Contact] " + subject,
+                    body
+                );
 
 
             /*
-            -------------------------------------------------
-            Lock button
-            -------------------------------------------------
-            */
+             * Save original button
+             */
 
-            originalBtnHTML =
-                submitBtn
-                    ? submitBtn.innerHTML
+            originalButtonHTML =
+                submitButton
+                    ? submitButton.innerHTML
                     : "";
 
 
-            if (submitBtn) {
+            /*
+             * Disable button
+             */
 
-                submitBtn.disabled =
+            if (submitButton) {
+
+                submitButton.disabled =
                     true;
 
-                submitBtn.innerHTML =
+                submitButton.innerHTML =
                     "Opening...";
             }
 
 
             /*
-            -------------------------------------------------
-            Open email client
-            -------------------------------------------------
-            */
+             * Open email application
+             */
 
             window.location.href =
                 mailtoUrl;
 
 
             /*
-            -------------------------------------------------
-            Fallback
-            -------------------------------------------------
-            */
+             * Fallback message
+             */
 
             window.setTimeout(
                 function () {
 
-                    if (submitBtn) {
+                    if (submitButton) {
 
-                        submitBtn.disabled =
+                        submitButton.disabled =
                             false;
 
-                        submitBtn.innerHTML =
-                            originalBtnHTML;
+                        submitButton.innerHTML =
+                            originalButtonHTML;
                     }
+
 
                     showFallback(
                         mailtoUrl
@@ -559,4 +470,4 @@ Uses mailto: to open the visitor's default email client.
         }
     );
 
-})();
+}());
