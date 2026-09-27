@@ -56,22 +56,6 @@ main::-webkit-scrollbar { width: 0; background: transparent; }
 }
 .download-btn:hover { background: #1e38a8; }
 
-.social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
-.social-links a {
-    background: #d4e9ff;
-    width: 42px;
-    height: 42px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #0a2b4e;
-    font-size: 1.2rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-.social-links a:hover { transform: translateY(-3px); }
-
 .hero-img {
     max-width: 100%;
     max-height: 65vh;
@@ -104,7 +88,6 @@ main::-webkit-scrollbar { width: 0; background: transparent; }
         padding: 0;
         max-width: 100%;
     }
-    .social-links { justify-content: center; }
     main {
         margin-top: 70px;
         width: 125%;
