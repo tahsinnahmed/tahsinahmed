@@ -7,25 +7,42 @@
 .contact-info { font-size: 1rem; margin-top: 3rem;}
 
 /* ========== SOCIAL LINKS ========== */
-.social-section {margin-top: 3rem;}
-.social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.social-section { margin-top: 1.25rem; }
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.6rem;
+}
+
 .social-links a {
     background: #d4e9ff;
     width: 42px;
     height: 42px;
-    min-width: 42px;     
+    min-width: 42px;
     min-height: 42px;
-    flex-shrink: 0;       
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     color: #0a2b4e;
     font-size: 1.2rem;
+    line-height: 1;
     text-decoration: none;
     transition: all 0.3s ease;
 }
-.social-links a:hover { transform: translateY(-3px); }
+
+.social-links a:hover {
+    background: #b8dcff;
+    transform: translateY(-3px);
+}
+
+.social-links a i {
+    color: #0a2b4e;
+    line-height: 1;
+}
 
 /* ========== MAP ========== */
 #hero-right {
