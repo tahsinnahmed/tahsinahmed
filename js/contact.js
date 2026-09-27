@@ -1,14 +1,12 @@
 /*
- * Tahsin Ahmed - Static Contact Form
+ * Tahsin Ahmed - Contact Form
  *
- * Browser-only JavaScript.
- * No Worker.
+ * Static browser-only implementation.
  * No backend.
  * No API.
- * No Resend.
+ * No Cloudflare Worker endpoint.
  *
- * Opens the visitor's email application with the
- * contact message pre-filled.
+ * The form opens the visitor's email application using mailto:.
  */
 
 (function () {
@@ -22,36 +20,23 @@
     var fileInput = document.getElementById("file");
     var fileChosen = document.getElementById("file-chosen");
 
-
     if (!form) {
         return;
     }
 
-
-    function clean(value) {
+    function trim(value) {
         return String(value || "").replace(/^\s+|\s+$/g, "");
     }
 
-
-    function valueOf(id) {
+    function getValue(id) {
         var element = document.getElementById(id);
-
-        if (!element) {
-            return "";
-        }
-
-        return clean(element.value);
+        return element ? trim(element.value) : "";
     }
 
+    function isValidEmail(value) {
+        var email = trim(value);
 
-    function validEmail(value) {
-        var email = clean(value);
-
-        if (email.length < 3) {
-            return false;
-        }
-
-        if (email.length > 254) {
+        if (!email || email.length > 254) {
             return false;
         }
 
@@ -62,412 +47,140 @@
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-
-    function showError(message) {
-        window.alert(message);
-    }
-
-
-    function buildMailto(subject, body) {
-        return (
-            "mailto:" +
-            RECIPIENT +
-            "?subject=" +
-            encodeURIComponent(subject) +
-            "&body=" +
-            encodeURIComponent(body)
-        );
-    }
-
-
-    function showFallback(url) {
-        var old;
-        var container;
-        var link;
-
-        old = document.getElementById("mailtoFallback");
-
-        if (old && old.parentNode) {
-            old.parentNode.removeChild(old);
-        }
-
-
-        container =
-            document.createElement("div");
-
-        container.id =
-            "mailtoFallback";
-
-        container.style.marginTop =
-            "15px";
-
-        container.style.lineHeight =
-            "1.6";
-
-
-        link =
-            document.createElement("a");
-
-        link.href =
-            url;
-
-        link.textContent =
-            "open your email app manually";
-
-        link.style.color =
-            "#00006d";
-
-        link.style.fontWeight =
-            "600";
-
-
-        container.appendChild(
-            document.createTextNode(
-                "Your email application did not open. "
-            )
-        );
-
-        container.appendChild(link);
-
-        container.appendChild(
-            document.createTextNode(".")
-        );
-
-
-        if (form.parentNode) {
-            form.parentNode.insertBefore(
-                container,
-                form.nextSibling
-            );
+    function resetFileLabel() {
+        if (fileChosen) {
+            fileChosen.textContent = "No file chosen";
         }
     }
 
-
-    /*
-     * Email validation
-     */
+    if (fileInput && fileChosen) {
+        fileInput.addEventListener("change", function () {
+            if (fileInput.files && fileInput.files.length > 0) {
+                fileChosen.textContent = fileInput.files[0].name;
+            } else {
+                resetFileLabel();
+            }
+        });
+    }
 
     if (emailInput) {
-
-        emailInput.addEventListener(
-            "input",
-            function () {
-
-                if (
-                    emailInput.value &&
-                    !validEmail(emailInput.value)
-                ) {
-
-                    emailInput.setCustomValidity(
-                        "Please enter a valid email address."
-                    );
-
-                } else {
-
-                    emailInput.setCustomValidity(
-                        ""
-                    );
-                }
-            }
-        );
-
-
-        emailInput.addEventListener(
-            "blur",
-            function () {
-
-                if (
-                    emailInput.value &&
-                    !validEmail(emailInput.value)
-                ) {
-
-                    emailInput.setCustomValidity(
-                        "Please enter a valid email address."
-                    );
-
-                } else {
-
-                    emailInput.setCustomValidity(
-                        ""
-                    );
-                }
-            }
-        );
-    }
-
-
-    /*
-     * Attachment name preview
-     */
-
-    if (
-        fileInput &&
-        fileChosen
-    ) {
-
-        fileInput.addEventListener(
-            "change",
-            function () {
-
-                var file = null;
-
-                if (
-                    fileInput.files &&
-                    fileInput.files.length > 0
-                ) {
-
-                    file =
-                        fileInput.files[0];
-                }
-
-
-                fileChosen.textContent =
-                    file
-                        ? file.name
-                        : "No file chosen";
-            }
-        );
-    }
-
-
-    /*
-     * Submit form
-     */
-
-    form.addEventListener(
-        "submit",
-        function (event) {
-
-            var name;
-            var email;
-            var subject;
-            var message;
-            var fileName;
-            var body;
-            var mailtoUrl;
-            var originalButtonHTML;
-
-
-            event.preventDefault();
-
-
-            /*
-             * Native browser validation
-             */
-
-            if (
-                typeof form.checkValidity === "function" &&
-                !form.checkValidity()
-            ) {
-
-                if (
-                    typeof form.reportValidity === "function"
-                ) {
-
-                    form.reportValidity();
-                }
-
-                return;
-            }
-
-
-            /*
-             * Get values
-             */
-
-            name =
-                valueOf("name");
-
-            email =
-                valueOf("email");
-
-            subject =
-                valueOf("subject");
-
-            message =
-                valueOf("message");
-
-
-            /*
-             * Validate name
-             */
-
-            if (!name) {
-
-                showError(
-                    "Please enter your name."
+        emailInput.addEventListener("input", function () {
+            if (!emailInput.value || isValidEmail(emailInput.value)) {
+                emailInput.setCustomValidity("");
+            } else {
+                emailInput.setCustomValidity(
+                    "Please enter a valid email address."
                 );
-
-                return;
             }
+        });
+    }
 
+    form.addEventListener("submit", function (event) {
+        var name;
+        var email;
+        var subject;
+        var message;
+        var attachmentName;
+        var body;
+        var mailtoUrl;
+        var originalButtonHTML;
 
-            /*
-             * Validate email
-             */
+        event.preventDefault();
 
-            if (!validEmail(email)) {
+        if (
+            typeof form.checkValidity === "function" &&
+            !form.checkValidity()
+        ) {
+            if (typeof form.reportValidity === "function") {
+                form.reportValidity();
+            }
+            return;
+        }
 
-                if (emailInput) {
+        name = getValue("name");
+        email = getValue("email");
+        subject = getValue("subject");
+        message = getValue("message");
 
-                    emailInput.setCustomValidity(
-                        "Please enter a valid email address."
-                    );
+        if (!name) {
+            window.alert("Please enter your name.");
+            return;
+        }
 
-                    emailInput.focus();
-                }
-
-
-                showError(
+        if (!isValidEmail(email)) {
+            if (emailInput) {
+                emailInput.setCustomValidity(
                     "Please enter a valid email address."
                 );
 
-                return;
+                if (typeof emailInput.focus === "function") {
+                    emailInput.focus();
+                }
             }
 
-
-            /*
-             * Validate subject
-             */
-
-            if (!subject) {
-
-                showError(
-                    "Please enter a subject."
-                );
-
-                return;
-            }
-
-
-            /*
-             * Validate message
-             */
-
-            if (!message) {
-
-                showError(
-                    "Please enter your message."
-                );
-
-                return;
-            }
-
-
-            /*
-             * Attachment name
-             */
-
-            fileName =
-                "None";
-
-            if (
-                fileInput &&
-                fileInput.files &&
-                fileInput.files.length > 0
-            ) {
-
-                fileName =
-                    fileInput.files[0].name;
-            }
-
-
-            /*
-             * Build email body
-             */
-
-            body =
-                "New Contact Form Message\n" +
-                "\n" +
-                "Name: " +
-                name +
-                "\n" +
-                "Email: " +
-                email +
-                "\n" +
-                "Subject: " +
-                subject +
-                "\n" +
-                "\n" +
-                "Message:\n" +
-                message +
-                "\n" +
-                "\n" +
-                "Attachment selected: " +
-                fileName +
-                "\n" +
-                "\n" +
-                "Website: https://www.tahsinahmed.com/";
-
-
-            /*
-             * Build mailto URL
-             */
-
-            mailtoUrl =
-                buildMailto(
-                    "[Contact] " + subject,
-                    body
-                );
-
-
-            /*
-             * Save original button
-             */
-
-            originalButtonHTML =
-                submitButton
-                    ? submitButton.innerHTML
-                    : "";
-
-
-            /*
-             * Disable button
-             */
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.innerHTML =
-                    "Opening...";
-            }
-
-
-            /*
-             * Open email application
-             */
-
-            window.location.href =
-                mailtoUrl;
-
-
-            /*
-             * Fallback message
-             */
-
-            window.setTimeout(
-                function () {
-
-                    if (submitButton) {
-
-                        submitButton.disabled =
-                            false;
-
-                        submitButton.innerHTML =
-                            originalButtonHTML;
-                    }
-
-
-                    showFallback(
-                        mailtoUrl
-                    );
-
-                },
-                1500
-            );
+            window.alert("Please enter a valid email address.");
+            return;
         }
-    );
 
+        if (!subject) {
+            window.alert("Please enter a subject.");
+            return;
+        }
+
+        if (!message) {
+            window.alert("Please enter your message.");
+            return;
+        }
+
+        attachmentName = "None";
+
+        if (
+            fileInput &&
+            fileInput.files &&
+            fileInput.files.length > 0
+        ) {
+            attachmentName = fileInput.files[0].name;
+        }
+
+        body =
+            "New Contact Form Message\n\n" +
+            "Name: " + name + "\n" +
+            "Email: " + email + "\n" +
+            "Subject: " + subject + "\n\n" +
+            "Message:\n" +
+            message + "\n\n" +
+            "Attachment selected: " +
+            attachmentName + "\n\n" +
+            "Website: https://www.tahsinahmed.com/";
+
+        mailtoUrl =
+            "mailto:" +
+            RECIPIENT +
+            "?subject=" +
+            encodeURIComponent("[Contact] " + subject) +
+            "&body=" +
+            encodeURIComponent(body);
+
+        originalButtonHTML =
+            submitButton ? submitButton.innerHTML : "";
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = "Opening...";
+        }
+
+        /*
+         * No HTTP request is made here.
+         * The browser hands the composed email to the user's
+         * configured email application.
+         */
+        window.location.href = mailtoUrl;
+
+        window.setTimeout(function () {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonHTML;
+            }
+        }, 2000);
+    });
 }());
