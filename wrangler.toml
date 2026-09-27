@@ -1,9 +1,0 @@
-# wrangler.toml
-name = "my-worker"
-main = "src/index.js"
-compatibility_date = "2024-01-01"
-
-# Route the worker to a custom domain
-routes = [
-  { pattern = "tahsinahmed.com", custom_domain = true }
-]
