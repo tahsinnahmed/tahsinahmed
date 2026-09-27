@@ -8,6 +8,7 @@ binding = "ASSETS"
 
 [[send_email]]
 name = "EMAIL"
+destination_address = "contact@tahsinahmed.com"
 allowed_sender_addresses = ["contact@tahsinahmed.com"]
 
 [observability]
